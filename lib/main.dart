@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:test3/screen/main_screen.dart';
 import 'package:test3/utils/utils.dart';
+
+import 'constants/cast_color_const.dart';
+import 'screen/component/status_bar_widget.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +25,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black87),
+        dialogTheme: const DialogTheme(
+          backgroundColor: Colors.white,
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -53,28 +60,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: CastProColor.backgroundColor,
       body: InkWell(
         highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
         splashColor: Colors.transparent, //클릭시 원형 이펙트
         onTap: () {
           Utils.logMsg('clicked');
           print('clicked');
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return const MainScreen();
+          }));
 
         },
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                  Icon(Icons.wifi, color: Colors.white,),
-                  Icon(Icons.settings_applications, color: Colors.white,),
-                ],),
-              ),
+              const StatusBarWidget(),
               const Image(
                 image: AssetImage('assets/castpro_logo.png'),
               ),
@@ -116,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                           ),
-                          Divider(color: Color(0xff3C3C3C),height: 5,),
+                          Divider(color: CastProColor.dividerColor,height: 5,),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Row(
