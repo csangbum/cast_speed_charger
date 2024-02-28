@@ -93,13 +93,21 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
                 const Text('충전금액', style: TextStyle(fontSize: 10),),
                 TextField(
                   controller: textEditingController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: '충전금액',
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.cancel_outlined, color: Colors.grey,),
+                      onPressed: (){
+                        setState(() {
+                          textEditingController.clear();
+                        });
+                      },
+                    ),
                   ),
                 ),],
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(0.0),
               child: GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: 3,
@@ -153,28 +161,46 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
   }
 
   Widget buildButton(String text) {
-    return ElevatedButton(
-      onPressed: () {
-        print('csangbum inputText = $text');
-        setState(() {
-          if (text == '지우기') {
-            phoneNumber = '';
-          } else {
-            phoneNumber += text;
-          }
-          textEditingController.text = phoneNumber;
-        });
-      },
-      style: ElevatedButton.styleFrom(
-        shape: const CircleBorder(),
-        padding: const EdgeInsets.all(10),
-        side: BorderSide.none,
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
-      ),
-    );
+    return TextButton(
+        onPressed: () {
+          print('csangbum inputText = $text');
+          setState(() {
+            if (text == '지우기') {
+              phoneNumber = '';
+            } else {
+              phoneNumber += text;
+            }
+            textEditingController.text = phoneNumber;
+          });
+        },
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.black,
+          textStyle: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
+        ),
+        child: Text(text));
   }
+    // return ElevatedButton(
+    //   onPressed: () {
+    //     print('csangbum inputText = $text');
+    //     setState(() {
+    //       if (text == '지우기') {
+    //         phoneNumber = '';
+    //       } else {
+    //         phoneNumber += text;
+    //       }
+    //       textEditingController.text = phoneNumber;
+    //     });
+    //   },
+    //   style: ElevatedButton.styleFrom(
+    //     shape: const CircleBorder(),
+    //     padding: const EdgeInsets.all(10),
+    //     side: BorderSide.none,
+    //   ),
+    //   child: Text(
+    //     text,
+    //     style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
+    //   ),
+    // );
+
 }
 

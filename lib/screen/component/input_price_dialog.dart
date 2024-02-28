@@ -110,6 +110,26 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
   }
 
   Widget buildButton(String text) {
+    return TextButton(
+        onPressed: () {
+          print('csangbum inputText = $text');
+          setState(() {
+            if (text == '지우기') {
+              phoneNumber = '';
+            } else {
+              phoneNumber += text;
+            }
+            textEditingController.text = phoneNumber;
+          });
+        },
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.black,
+          textStyle: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
+        ),
+        child: Text(text));
+  }
+
+  Widget buildButton1(String text) {
     return ElevatedButton(
       onPressed: () {
         print('csangbum inputText = $text');
