@@ -76,6 +76,14 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
+  fonts:
+    - family: NotoSansKorean
+      fonts:
+        - asset: font/Noto_Sans_KR/NotoSansKR-Regular.ttf
+        - asset: font/Noto_Sans_KR/NotoSansKR-Bold.ttf
+          weight: 700  # bold 폰트의 경우에는 weight를 700으로 지정합니다.
+        - asset: font/Noto_Sans_KR/NotoSansKR-Thin.ttf
+          weight: 100  # thin 폰트의 경우에는 weight를 100으로 지정합니다.
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

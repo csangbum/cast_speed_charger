@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 class Utils {
@@ -87,5 +88,17 @@ class Utils {
         methodCount: 2
     ));
     logger.d(log);
+  }
+
+  static double getHorizonSize(double percent, BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    Utils.logMsg('csangbum getHorizonSize ${percent * width /100} width $width');
+    return percent*width / 100;
+  }
+
+  static double getVerticalSize(double percent, BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    Utils.logMsg('csangbum getHorizonSize ${percent*height /100}');
+    return percent*height / 100;
   }
 }
