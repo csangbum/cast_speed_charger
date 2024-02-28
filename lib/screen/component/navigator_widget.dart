@@ -34,8 +34,8 @@ class _NavigatorWidgetState extends State<NavigatorWidget> {
                 iconSize: 35,
                 color: Colors.white,
                 onPressed: () {
-                  // controller.moveToPreviousState();
-                  controller.moveToNextState();
+                  controller.moveToPreviousState();
+                  // controller.moveToNextState();
                   setState(() {
                     print('csangbum click movetoNextState');
                     widget.screenCallback();
@@ -55,9 +55,9 @@ class _NavigatorWidgetState extends State<NavigatorWidget> {
                 iconSize: 35,
                 color: Colors.white,
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  controller.setStatus(ChargingStatus.selectCable);
                   setState(() {
-
+                    Navigator.of(context).pop();
                   });
                 },
               ),

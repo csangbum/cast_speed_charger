@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:test3/constants/cast_color_const.dart';
 
+import '../charger_info.dart';
 import '../utils/utils.dart';
 
 class SelectChargerCable extends StatefulWidget {
   final double paddingVertical = 7;
   final double orSizeRatio = 355/1080*100;
-  const SelectChargerCable({super.key});
+  SelectChargerCable({super.key, required this.screenCallback});
+  late void Function() screenCallback;
 
   @override
   State<SelectChargerCable> createState() => _SelectChargerCableState();
 }
 
 class _SelectChargerCableState extends State<SelectChargerCable> {
+  ChargingController controller = ChargingController();
   @override
   Widget build(BuildContext context) {
     final double horizonPadding = Utils.getHorizonSize(widget.paddingVertical, context);
@@ -33,10 +36,15 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
           const SizedBox(height: 25,),
           InkWell(
             onTap: () {
-              // 클릭 이벤트 처리
+              controller.setStatus(ChargingStatus.selectPayment);
+              setState(() {
+                print('csangbum click movetoNextState');
+                widget.screenCallback();
+              });
             },
             child: const Image(
               image: AssetImage('assets/c_type.png'),
+              width: 920,
             ),
           ),
           Padding(
@@ -48,10 +56,15 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
           ),
           InkWell(
             onTap: () {
-              // 클릭 이벤트 처리
+              controller.setStatus(ChargingStatus.selectPayment);
+              setState(() {
+                print('csangbum click movetoNextState');
+                widget.screenCallback();
+              });
             },
             child: const Image(
               image: AssetImage('assets/b_type.png'),
+              width: 920,
             ),
           ),
         ],

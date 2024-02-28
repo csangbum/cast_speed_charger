@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 
+import '../charger_info.dart';
 import '../constants/cast_color_const.dart';
 import '../utils/utils.dart';
 
 class SelectPayCardScreen extends StatefulWidget {
   final double paddingVertical = 7;
   final double imageRatio = 450/1080*100;
-  const SelectPayCardScreen({super.key});
+  SelectPayCardScreen({super.key, required this.screenCallback});
+  late void Function() screenCallback;
 
   @override
   State<SelectPayCardScreen> createState() => _SelectPayCardScreenState();
 }
 
 class _SelectPayCardScreenState extends State<SelectPayCardScreen> {
+  ChargingController controller = ChargingController();
   @override
   Widget build(BuildContext context) {
     double paddingSize = Utils.getHorizonSize(widget.paddingVertical, context);
@@ -35,25 +38,30 @@ class _SelectPayCardScreenState extends State<SelectPayCardScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    Image(
-                      image: const AssetImage('assets/paytype_iccard.png'),
-                      width: imageSize,
-                    ),
-                    // Text("신용카드\r\n삼성페이"),
-                  ],
+                InkWell(
+                  onTap: () {
+                    controller.setStatus(ChargingStatus.readCard);
+                    setState(() {
+                      widget.screenCallback();
+                    });
+                  },
+                  child: Image(
+                    image: const AssetImage('assets/paytype_iccard.png'),
+                    width: imageSize,
+                  ),
                 ),
                 const SizedBox(width: 8,),
-                Column(
-                  children: [
-                    // Image(),
-                    Image(
-                      image: const AssetImage('assets/paytype_usercard.png'),
-                      width: imageSize,
-                    ),
-                    // Text("회원카드\r\n환경부카드"),
-                  ],
+                InkWell(
+                  onTap: () {
+                    controller.setStatus(ChargingStatus.readCard);
+                    setState(() {
+                      widget.screenCallback();
+                    });
+                  },
+                  child: Image(
+                    image: const AssetImage('assets/paytype_usercard.png'),
+                    width: imageSize,
+                  ),
                 ),
               ],
             ),

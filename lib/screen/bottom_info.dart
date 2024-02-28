@@ -25,10 +25,7 @@ class BottomInfo extends StatelessWidget {
                         color: Colors.white,
                         fontFamily: GuiConstants.fontFamilyNoto,
                         fontSize: 8),
-
                     child: Text("U25 - F1.D.1.0_TV_FrimInfo")),
-                // Text("U25 - F1.D.1.0_TV_FrimInfo",
-                //   style: TextStyle(color: Colors.white, fontSize: 10, height: 1.0),),
                 SizedBox(height: 3,),
                 DefaultTextStyle(
                     style: TextStyle(
@@ -47,8 +44,8 @@ class BottomInfo extends StatelessWidget {
                       color: Colors.white,
                       fontFamily: GuiConstants.fontFamilyNoto,
                       fontSize: 9),
-
-                    child: Text("고객센터 070-4855-2090   ")),
+                    child: Text("고객센터 070-4855-2090")),
+                SizedBox(height: 7,),
                 Image(
                   image: AssetImage('assets/castpro_logo.png'),
                   width: 160,

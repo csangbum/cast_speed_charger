@@ -23,6 +23,11 @@ class ChargingController {
     return _currentStatus;
   }
 
+  void setStatus(ChargingStatus status) {
+    _currentStatus = status;
+    chargerInfo.chargingStatus = _currentStatus;
+  }
+
   // 이전 상태로 변경하기
   void moveToPreviousState() {
     switch (_currentStatus) {
@@ -64,7 +69,7 @@ class ChargingController {
         _currentStatus = ChargingStatus.charging;
         break;
       case ChargingStatus.charging:
-        _currentStatus = ChargingStatus.chargingComplete;
+        //_currentStatus = ChargingStatus.chargingComplete;
         break;
       case ChargingStatus.chargingComplete:
       // 현재 상태가 chargingComplete일 때는 다음 상태가 없으므로 변경하지 않음

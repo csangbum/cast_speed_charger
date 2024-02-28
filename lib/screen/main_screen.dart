@@ -26,6 +26,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CastProColor.backgroundColor,
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -35,12 +36,12 @@ class _MainScreenState extends State<MainScreen> {
             // child: SelectPayCardScreen(),
             child: IndexedStack(
               index: getPageIndex(), // 현재 보여줄 위젯의 인덱스
-              children: const [
-                SelectChargerCable(),
-                SelectPayCardScreen(),
-                ReadCardScreen(),
-                ChargerConnectScreen(),
-                ChargingStateScreen(),
+              children: [
+                SelectChargerCable(screenCallback: refreshScreen),
+                SelectPayCardScreen(screenCallback: refreshScreen),
+                ReadCardScreen(screenCallback: refreshScreen),
+                ChargerConnectScreen(screenCallback: refreshScreen),
+                ChargingStateScreen(screenCallback: refreshScreen),
               ],
             )
             // ChargingStateScreen(),
