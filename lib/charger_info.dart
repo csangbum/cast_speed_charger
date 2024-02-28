@@ -1,4 +1,6 @@
 
+import 'package:test3/utils/utils.dart';
+
 enum ChargingStatus {
   selectCable,
   selectPayment,
@@ -9,7 +11,7 @@ enum ChargingStatus {
 }
 
 class ChargingController {
-  ChargerInfo chargerInfo = ChargerInfo();
+  ChargerInfo chargerInfo = ChargerInfo.getInstance();
   late ChargingStatus _currentStatus;
 
 
@@ -30,6 +32,7 @@ class ChargingController {
 
   // 이전 상태로 변경하기
   void moveToPreviousState() {
+    _currentStatus = chargerInfo.chargingStatus;
     switch (_currentStatus) {
       case ChargingStatus.selectCable:
       // 현재 상태가 selectCable일 때는 이전 상태가 없으므로 변경하지 않음
@@ -80,21 +83,15 @@ class ChargingController {
 }
 
 class ChargerInfo {
-  // 인스턴스 변수
   static final ChargerInfo _instance = ChargerInfo._internal();
   ChargingStatus chargingStatus = ChargingStatus.selectCable;
   int selectedChannel = 0;
 
-  factory ChargerInfo() {
-    return _instance;
-  }
+  factory ChargerInfo() => _instance;
 
-  // private 생성자
   ChargerInfo._internal();
 
-
-  // 싱글톤 클래스의 기능 정의
-  void doSomething() {
-    print('Singleton is doing something.');
+  static ChargerInfo getInstance() {
+    return _instance;
   }
 }

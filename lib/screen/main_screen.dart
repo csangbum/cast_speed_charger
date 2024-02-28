@@ -3,7 +3,6 @@ import 'package:test3/charger_info.dart';
 import 'package:test3/screen/charger_connect_screen.dart';
 import 'package:test3/screen/charging_state_screen.dart';
 import 'package:test3/screen/component/status_bar_widget.dart';
-import 'package:test3/screen/number_input_dialog.dart';
 import 'package:test3/screen/read_card_screen.dart';
 import 'package:test3/screen/select_charger_cable.dart';
 import 'package:test3/screen/select_pay_card.dart';
@@ -21,9 +20,11 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int screenIndex = 0;
-  ChargerInfo chargingStatus = ChargerInfo();
+  ChargerInfo chargerInfo = ChargerInfo.getInstance();
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: CastProColor.backgroundColor,
 
@@ -69,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
 
   int getPageIndex() {
     int index = 0;
-    switch (chargingStatus.chargingStatus) {
+    switch (chargerInfo.chargingStatus) {
       case ChargingStatus.selectCable:
         index = 0;
         break;

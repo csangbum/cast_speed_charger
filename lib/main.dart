@@ -70,12 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
         highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
         splashColor: Colors.transparent, //클릭시 원형 이펙트
         onTap: () {
-          Utils.logMsg('clicked');
-          print('clicked');
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return const MainScreen();
           }));
-
         },
         child: Center(
           child: Column(
@@ -83,12 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               const StatusBarWidget(),
               const Divider(height: 3, color: CastProColor.dividerColor,),
+              const SizedBox(height: 20,),
               const Image(
                 image: AssetImage('assets/castpro_logo.png'),
+                width: 300,
               ),
               const Divider(height: 3, color: CastProColor.dividerColor,),
               Padding(
-                  padding: const EdgeInsets.only(bottom: 50.0),
+                  padding: const EdgeInsets.only(bottom: 0.0),
                   child: Container(
                     alignment: Alignment.center,
                     decoration: const BoxDecoration(
@@ -138,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('신용카드', style: TextStyle(color: Colors.white, fontSize: 23, fontFamily: GuiConstants.fontFamilyNoto),),
-                                Text('324.4원',style: TextStyle(color: Colors.white, fontSize: 23, fontFamily: GuiConstants.fontFamilyNoto),),
+                                Text('200.0원',style: TextStyle(color: Colors.white, fontSize: 23, fontFamily: GuiConstants.fontFamilyNoto),),
                               ],
                             ),
                           )

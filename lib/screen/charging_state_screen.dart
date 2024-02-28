@@ -81,18 +81,19 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             DefaultTextStyle(
-                                style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
+                                style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
                                 child: Text("충전량")),
-                            Row(
-                              children: [
-                                Icon(Icons.flash_on_outlined, color: Colors.cyanAccent),
-                                // Text('4.52'),
-                                // Text(' kw/h'),
-                                SizedBox(width: 10,),
-                                DefaultTextStyle(
-                                    style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                    child: Text("4.52 kw/h"))
-                              ],
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              child: Row(
+                                children: [
+                                  Image(image: AssetImage('assets/charging_power_icon.png'), width: 12,),
+                                  SizedBox(width: 10,),
+                                  DefaultTextStyle(
+                                      style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
+                                      child: Text("4.52 kw/h"))
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -100,16 +101,20 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             DefaultTextStyle(
-                                style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                child: Text("충전 금액")),
-                            Row(
-                              children: [
-                                Icon(Icons.money_outlined, color:Colors.cyanAccent),
-                                SizedBox(width: 10,),
-                                DefaultTextStyle(
-                                    style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                    child: Text("10,000 원"))
-                              ],
+                                style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
+                                child: Text("충전금액")),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              child: Row(
+                                children: [
+                                  // Icon(Icons.money_outlined, color:Colors.cyanAccent),
+                                  Image(image: AssetImage('assets/charging_pay_icon.png'), width: 12,),
+                                  SizedBox(width: 10,),
+                                  DefaultTextStyle(
+                                      style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
+                                      child: Text("10,000 원"))
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -129,8 +134,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                     },
                     child: Image(
                       width: stopBtnWidth,
-                      image: const AssetImage('assets/stop_btn.png')
-                      ,
+                      image: const AssetImage('assets/stop_btn.png'),
                     ),
                   ),
                   const SizedBox(height: 10,)
@@ -202,10 +206,11 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                                 style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
                                 child: Text("충전량")),
                             Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4.0),
+                              padding: EdgeInsets.symmetric(vertical: 4),
                               child: Row(
                                 children: [
-                                  Icon(Icons.flash_on_outlined, color: Colors.cyanAccent),
+                                  // Icon(Icons.flash_on_outlined, color: Colors.cyanAccent),
+                                  Image(image: AssetImage('assets/charging_power_icon.png'), width: 12,),
                                   SizedBox(width: 10,),
                                   DefaultTextStyle(
                                       style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
@@ -225,7 +230,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                               padding: EdgeInsets.symmetric(vertical: 4.0),
                               child: Row(
                                 children: [
-                                  Icon(Icons.money_outlined, color:Colors.cyanAccent),
+                                  Image(image: AssetImage('assets/charging_pay_icon.png'), width: 12,),
                                   SizedBox(width: 10,),
                                   DefaultTextStyle(
                                       style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
