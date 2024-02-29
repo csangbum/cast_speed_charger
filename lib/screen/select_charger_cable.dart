@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test3/constants/cast_color_const.dart';
 import 'package:test3/screen/component/input_phone_number_dialog.dart';
+import 'package:test3/screen/component/input_price_dialog.dart';
 
 import '../charger_info.dart';
 import '../utils/utils.dart';
@@ -37,17 +38,17 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
           const SizedBox(height: 25,),
           InkWell(
             onTap: () {
-              // controller.setStatus(ChargingStatus.selectPayment);
-              // setState(() {
-              //   print('csangbum click movetoNextState');
-              //   widget.screenCallback();
-              // });
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return InputPhoneNumberDialog(); // 위에서 정의한 다이얼로그 사용
-                },
-              );
+              controller.setStatus(ChargingStatus.selectPayment);
+              setState(() {
+                print('csangbum click movetoNextState');
+                widget.screenCallback();
+              });
+              // showDialog(
+              //   context: context,
+              //   builder: (BuildContext context) {
+              //     return const InputPhoneNumberDialog(); // 위에서 정의한 다이얼로그 사용
+              //   },
+              // );
             },
             child: const Image(
               image: AssetImage('assets/c_type.png'),

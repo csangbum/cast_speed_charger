@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:test3/screen/component/input_price_dialog.dart';
 
 import '../charger_info.dart';
 import '../constants/cast_color_const.dart';
 import '../utils/utils.dart';
+import 'component/input_phone_number_dialog.dart';
 
 class SelectPayCardScreen extends StatefulWidget {
   final double paddingVertical = 7;
@@ -40,10 +42,16 @@ class _SelectPayCardScreenState extends State<SelectPayCardScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    controller.setStatus(ChargingStatus.readCard);
-                    setState(() {
-                      widget.screenCallback();
-                    });
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return InputPhoneNumberDialog(okClickCallback: onOkClick,); // 위에서 정의한 다이얼로그 사용
+                      },
+                    );
+                    // controller.setStatus(ChargingStatus.readCard);
+                    // setState(() {
+                    //   widget.screenCallback();
+                    // });
                   },
                   child: Image(
                     image: const AssetImage('assets/paytype_iccard.png'),
@@ -53,10 +61,16 @@ class _SelectPayCardScreenState extends State<SelectPayCardScreen> {
                 const SizedBox(width: 8,),
                 InkWell(
                   onTap: () {
-                    controller.setStatus(ChargingStatus.readCard);
-                    setState(() {
-                      widget.screenCallback();
-                    });
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return InputPhoneNumberDialog(okClickCallback: onOkClick,); // 위에서 정의한 다이얼로그 사용
+                      },
+                    );
+                    // controller.setStatus(ChargingStatus.readCard);
+                    // setState(() {
+                    //   widget.screenCallback();
+                    // });
                   },
                   child: Image(
                     image: const AssetImage('assets/paytype_usercard.png'),
@@ -69,5 +83,21 @@ class _SelectPayCardScreenState extends State<SelectPayCardScreen> {
             ),
       )
     );
+  }
+
+  void onOkClick() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return InputPriceDialog(okClickCallback: processAfterInputPrice,); // 위에서 정의한 다이얼로그 사용
+      },
+    );
+  }
+
+  void processAfterInputPrice() {
+    controller.setStatus(ChargingStatus.readCard);
+    setState(() {
+      widget.screenCallback();
+    });
   }
 }

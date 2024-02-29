@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:test3/screen/main_screen.dart';
 import 'package:test3/utils/utils.dart';
+import 'package:video_player/video_player.dart';
 
 import 'constants/cast_color_const.dart';
 import 'screen/component/status_bar_widget.dart';
@@ -47,18 +48,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    // 비디오 파일의 경로를 지정합니다.
+    // _controller = VideoPlayerController.asset('assets/shutterstock.mp4')
+    //   ..initialize().then((_) {
+    //     Utils.logMsg('csangbum done');
+    //     _controller.setLooping(true);
+    //     setState(() {});
+    //   });
   }
+
+  @override
+  void dispose() {
+    // 페이지가 dispose될 때 비디오 컨트롤러를 해제합니다.
+    // _controller.dispose();
+    super.dispose();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
               const Divider(height: 3, color: CastProColor.dividerColor,),
               Padding(
                   padding: const EdgeInsets.only(bottom: 0.0),
+                  // child: Center(
+                  //   child: _controller.value.isInitialized
+                  //       ? AspectRatio(
+                  //     aspectRatio: _controller.value.aspectRatio,
+                  //     child: VideoPlayer(_controller),
+                  //   )
+                  //       : CircularProgressIndicator(),
+                  // ),
                   child: Container(
                     alignment: Alignment.center,
                     decoration: const BoxDecoration(
