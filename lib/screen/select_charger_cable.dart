@@ -37,6 +37,8 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
               child: Text("충전을 시작하시려면\r\n충전 방식을 선택해 주세요.")),
           const SizedBox(height: 25,),
           InkWell(
+            highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
+            splashColor: Colors.transparent, //클릭시 원형 이펙트
             onTap: () {
               controller.setStatus(ChargingStatus.selectPayment);
               setState(() {
@@ -63,6 +65,8 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
             ),
           ),
           InkWell(
+            highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
+            splashColor: Colors.transparent, //클릭시 원형 이펙트
             onTap: () {
               controller.setStatus(ChargingStatus.selectPayment);
               setState(() {

@@ -32,7 +32,7 @@ class BottomInfo extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: GuiConstants.fontFamilyNoto,
                         fontWeight: FontWeight.w700,
-                        fontSize: 15),
+                        fontSize: 14),
                     child: Text("ID : CP0001")),
               ],
             ),

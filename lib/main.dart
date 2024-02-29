@@ -40,7 +40,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
   final chargerFeeHeightRatio = 350 / 1920 *100;
-  final bottomHeightRatio = 320 / 1920 *100;
+  final bottomHeightRatio = 260 / 1920 *100;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               const StatusBarWidget(),
               // const Divider(height: 3, color: CastProColor.dividerColor,),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 80,),
               const Image(
                 image: AssetImage('assets/castpro_logo.png'),
                 width: 300,
@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               // const Divider(height: 3, color: CastProColor.dividerColor,),
               const Padding(
-                padding: EdgeInsets.only(bottom: 40.0),
+                padding: EdgeInsets.only(bottom: 50.0),
                 child: Text(
                   '화면을 터치해주세요!',
                   style: TextStyle(color: Colors.white, fontSize: 28),

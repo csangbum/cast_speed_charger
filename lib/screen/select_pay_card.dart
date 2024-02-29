@@ -41,8 +41,6 @@ class _SelectPayCardScreenState extends State<SelectPayCardScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
-                  splashColor: Colors.transparent, //클릭시 원형 이펙트
                   onTap: () {
                     showDialog(
                       context: context,

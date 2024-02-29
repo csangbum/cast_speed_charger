@@ -43,7 +43,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: const TextSpan(
-                        text: '우측 커넥터 ',
+                        text: '좌측 커넥터 ',
                         style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto),
                         children: <TextSpan>[
                           TextSpan(
@@ -137,7 +137,6 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                           return const CustomDialog(); // 위에서 정의한 다이얼로그 사용
                         },
                       );
-
                     },
                     child: Image(
                       width: stopBtnWidth,
@@ -164,7 +163,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: const TextSpan(
-                        text: '좌측 커넥터 ',
+                        text: '우측 커넥터 ',
                         style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto),
                         children: <TextSpan>[
                           TextSpan(
