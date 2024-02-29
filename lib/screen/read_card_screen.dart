@@ -15,6 +15,8 @@ class _ReadCardScreenState extends State<ReadCardScreen> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
+      splashColor: Colors.transparent, //클릭시 원형 이펙트
       onTap: () {
         controller.setStatus(ChargingStatus.connectCable);
         setState(() {

@@ -17,6 +17,8 @@ class _ChargerConnectScreenState extends State<ChargerConnectScreen> {
   Widget build(BuildContext context) {
     print('csangbum ${MediaQuery.of(context).size.width}');
     return InkWell(
+      highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
+      splashColor: Colors.transparent, //클릭시 원형 이펙트
       onTap: () {
         controller.setStatus(ChargingStatus.charging);
         setState(() {

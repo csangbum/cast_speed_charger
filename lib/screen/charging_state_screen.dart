@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:test3/constants/cast_color_const.dart';
 
 import '../utils/utils.dart';
@@ -14,6 +15,13 @@ class ChargingStateScreen extends StatefulWidget {
 }
 
 class _ChargingStateScreenState extends State<ChargingStateScreen> {
+  final int ch1ElpsedTime = 0;
+  final int ch2ElpsedTime = 40;
+  final int ch1ChargingTime = 50;
+  final int ch2ChargingTime = 60;
+  final int ch1ChargingEndTime = 4000;
+  final int ch2ChargingEndTime = 2000;
+
   @override
   Widget build(BuildContext context) {
     double stopBtnWidth = Utils.getHorizonSize((248 / 1080 * 100), context);
@@ -35,7 +43,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: const TextSpan(
-                        text: '좌측 커넥터 ',
+                        text: '우측 커넥터 ',
                         style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto),
                         children: <TextSpan>[
                           TextSpan(
@@ -50,21 +58,21 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          getTitleAndTime('경과시간', 900),
-                          getTitleAndTime('충전시간', 900),
-                          getTitleAndTime('남은시간', 900),
-                        ]
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            getTitleAndTime('경과시간', ch1ElpsedTime, true),
+                            getTitleAndTime('충전시간', ch1ChargingTime, true),
+                            getTitleAndTime('남은시간', ch1ChargingEndTime, false),
+                          ]
                       ),
                       Center(
                         child: CircularPercentIndicator(
                           radius: 50.0, // 원형 진행 바의 반지름
-                          lineWidth: 15.0, // 진행 바의 두께
+                          lineWidth: 17.0, // 진행 바의 두께
                           percent: 0.7, // 진행 값 (0.0부터 1.0까지)
                           center: const DefaultTextStyle(
-                                    style: TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
-                                    child: Text("70%")),
+                              style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
+                              child: Text("진행\r\n70%")),
                           circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
                           backgroundColor: Colors.grey, // 배경 색상
                           progressColor: Colors.blue, // 진행 바 색상
@@ -107,7 +115,6 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                               padding: EdgeInsets.symmetric(vertical: 8.0),
                               child: Row(
                                 children: [
-                                  // Icon(Icons.money_outlined, color:Colors.cyanAccent),
                                   Image(image: AssetImage('assets/charging_pay_icon.png'), width: 12,),
                                   SizedBox(width: 10,),
                                   DefaultTextStyle(
@@ -174,19 +181,19 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                       Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            getTitleAndTime('경과시간', 900),
-                            getTitleAndTime('충전시간', 900),
-                            getTitleAndTime('남은시간', 900),
+                            getTitleAndTime('경과시간', ch2ElpsedTime, true),
+                            getTitleAndTime('충전시간', ch2ChargingTime, true),
+                            getTitleAndTime('남은시간', ch2ChargingEndTime, false),
                           ]
                       ),
                       Center(
                         child: CircularPercentIndicator(
                           radius: 50.0, // 원형 진행 바의 반지름
-                          lineWidth: 15.0, // 진행 바의 두께
-                          percent: 0.7, // 진행 값 (0.0부터 1.0까지)
+                          lineWidth: 17.0, // 진행 바의 두께
+                          percent: 0.4, // 진행 값 (0.0부터 1.0까지)
                           center: const DefaultTextStyle(
-                              style: TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
-                              child: Text("70%")),
+                              style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
+                              child: Text("진행\r\n40%")),
                           circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
                           backgroundColor: Colors.grey, // 배경 색상
                           progressColor: Colors.blue, // 진행 바 색상
@@ -209,7 +216,6 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                               padding: EdgeInsets.symmetric(vertical: 4),
                               child: Row(
                                 children: [
-                                  // Icon(Icons.flash_on_outlined, color: Colors.cyanAccent),
                                   Image(image: AssetImage('assets/charging_power_icon.png'), width: 12,),
                                   SizedBox(width: 10,),
                                   DefaultTextStyle(
@@ -267,17 +273,131 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
     );
   }
 
-  Widget getTitleAndTime(String title, int time) {
+  Widget getTitleAndTime(String title, int time, bool bIncrease) {
     return Row(
       children: [
         DefaultTextStyle(
             style: const TextStyle(color: Colors.white, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
             child: Text(title)),
         const SizedBox(width: 30,),
-        DefaultTextStyle(
-            style: const TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
-            child: Text(Utils.getHourFormat(time)),)
+        bIncrease? _ChargedTimeUp(preset:time, updateScreen: () {  },): _ChargedTimeDown(preset:time, updateScreen: () {  },),
+        // DefaultTextStyle(
+        //     style: const TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
+        //     child: Text(Utils.getHourFormat(time)),)
       ],
     );
   }
+}
+
+class _ChargedTimeUp extends StatefulWidget {
+  int preset;
+  VoidCallback updateScreen;
+  _ChargedTimeUp({Key? key, required this.preset, required this.updateScreen})
+      : super(key: key);
+
+  @override
+  State<_ChargedTimeUp> createState() => _ChargedTimeUpState();
+}
+
+class _ChargedTimeUpState extends State<_ChargedTimeUp> {
+  late StopWatchTimer stopWatchTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    Utils.logMsg('initState StopWatchTimer???? preset ${widget.preset}');
+    stopWatchTimer = StopWatchTimer(
+      mode: StopWatchMode.countUp,
+    );
+    stopWatchTimer.setPresetSecondTime(widget.preset);
+    stopWatchTimer.onStartTimer();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<int>(
+      stream: stopWatchTimer.rawTime,
+      initialData: stopWatchTimer.rawTime.value,
+      builder: (context, snapshot) {
+        final value = snapshot.data!;
+
+        final displayTime = StopWatchTimer.getDisplayTime(value, milliSecond: false);
+        return Text(
+          displayTime,
+          textAlign: TextAlign.right,
+          style: const TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    Utils.logMsg('dispose stop watch timer');
+    stopWatchTimer.onStopTimer();
+    stopWatchTimer.dispose();
+    super.dispose();
+  }
+}
+
+
+class _ChargedTimeDown extends StatefulWidget {
+  int preset;
+  VoidCallback updateScreen;
+  _ChargedTimeDown({Key? key, required this.preset, required this.updateScreen})
+      : super(key: key);
+
+  @override
+  State<_ChargedTimeDown> createState() => _ChargedTimeDownState();
+}
+
+class _ChargedTimeDownState extends State<_ChargedTimeDown> {
+  late StopWatchTimer stopWatchTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    Utils.logMsg('_ChargedTimeDown initState StopWatchTimer????');
+    stopWatchTimer = StopWatchTimer(
+        mode: StopWatchMode.countDown,
+        onChange:  (int count) {
+          int sec = StopWatchTimer.getRawSecond(count);
+          if (sec <=0) {
+            stopWatchTimer.onStopTimer();
+            Future.delayed(const Duration(seconds: 2), (){
+              widget.updateScreen();
+            });
+          }
+        }
+    );
+    stopWatchTimer.setPresetSecondTime(widget.preset);
+    stopWatchTimer.onStartTimer();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<int>(
+      stream: stopWatchTimer.rawTime,
+      initialData: stopWatchTimer.rawTime.value,
+      builder: (context, snapshot) {
+        final value = snapshot.data!;
+        final displayTime =
+        StopWatchTimer.getDisplayTime(value, milliSecond: false);
+        return Text(
+          displayTime,
+          textAlign: TextAlign.right,
+          style: const TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    Utils.logMsg('dispose stop watch timer');
+    stopWatchTimer.onStopTimer();
+    stopWatchTimer.dispose();
+    super.dispose();
+  }
+
 }

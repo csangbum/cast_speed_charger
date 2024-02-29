@@ -63,7 +63,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
                 ),],
             ),
             Padding(
-                padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 0),
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Column(
                   children: [
                     Row(
@@ -74,7 +74,6 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
                         buildButton('3'),
                       ],
                     ),
-                    const SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -83,7 +82,6 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
                         buildButton('6'),
                       ],
                     ),
-                    const SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -91,9 +89,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
                         buildButton('8'),
                         buildButton('9'),
                       ],
-                    ),
-                    const SizedBox(height: 15,),
-                    Row(
+                    ),Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         buildButton('00'),
@@ -158,7 +154,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all<Size>(
           const Size(70, 60),)), // 원하는 너비와 높이로 설정
-        child: Text(text, style: const TextStyle(fontSize: 28, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black),));
+        child: Text(text, style: const TextStyle(fontSize: 25, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black),));
   }
 }
 

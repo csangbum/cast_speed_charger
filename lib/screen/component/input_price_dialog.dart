@@ -46,7 +46,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
             ),
             const SizedBox(height: 25,),
             Container(
-              decoration: const BoxDecoration(color: Color(0xffe0e0e0), borderRadius: BorderRadius.all(Radius.circular(8)),),
+              decoration: const BoxDecoration(color: Color(0xfff5f5f5), borderRadius: BorderRadius.all(Radius.circular(8)),),
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(

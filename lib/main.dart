@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
 import 'package:test3/screen/main_screen.dart';
 import 'package:test3/utils/utils.dart';
 import 'package:video_player/video_player.dart';
@@ -91,13 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               const StatusBarWidget(),
-              const Divider(height: 3, color: CastProColor.dividerColor,),
+              // const Divider(height: 3, color: CastProColor.dividerColor,),
               const SizedBox(height: 20,),
               const Image(
                 image: AssetImage('assets/castpro_logo.png'),
                 width: 300,
               ),
-              const Divider(height: 3, color: CastProColor.dividerColor,),
+              // const Divider(height: 3, color: CastProColor.dividerColor,),
               Padding(
                   padding: const EdgeInsets.only(bottom: 0.0),
                   // child: Center(
@@ -118,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
               ),
-              const Divider(height: 3, color: CastProColor.dividerColor,),
+              // const Divider(height: 3, color: CastProColor.dividerColor,),
               const Padding(
                 padding: EdgeInsets.only(bottom: 40.0),
                 child: Text(
@@ -127,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white70),
                 ),
               ),
-              const Divider(height: 3, color: CastProColor.dividerColor,),
+              // const Divider(height: 3, color: CastProColor.dividerColor,),
               Container(
                 height: feeHeight,
                 alignment: Alignment.center,
@@ -167,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              const Divider(height: 3, color: CastProColor.dividerColor,),
+              // const Divider(height: 3, color: CastProColor.dividerColor,),
               SizedBox(
                 height: bottomHeight,
                 child: const Center(

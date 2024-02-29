@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test3/constants/cast_color_const.dart';
 
@@ -15,42 +14,47 @@ class CustomDialog extends StatelessWidget {
 
       backgroundColor: Colors.white,
       contentPadding: const EdgeInsets.all(20), // 패딩 설정
-      title: const Center(
-          child: DefaultTextStyle(
-              style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: GuiConstants.fontFamilyNoto,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25),
-              child: Text("충전완료"))),
-      titlePadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       content: SizedBox(
         width: MediaQuery.of(context).size.width-10,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            RichText(
+              text: const TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '충전',
+                    style: TextStyle(color: Colors.black, fontFamily: GuiConstants.fontFamilyNoto,fontSize: 25,fontWeight: FontWeight.w700, ),
+                  ),
+                  TextSpan(
+                    text: '완료',
+                    style: TextStyle(color: Colors.blueAccent, fontFamily: GuiConstants.fontFamilyNoto,fontSize: 25,fontWeight: FontWeight.w700, ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8,),
             const Center(
                 child: DefaultTextStyle(
                   style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.grey,
                   fontFamily: GuiConstants.fontFamilyNoto,
-                  fontWeight: FontWeight.w700,
                   fontSize: 15),
                   child: Text("충전내역을 확인하세요"))),
             const SizedBox(height: 20), // 간격 추가
             Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(15)),
-                color: Colors.grey[300]
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                color: Color(0xffececec),
               ),
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  getTitleAndTime('충전시간', '00:30:50'),
-                  getTitleAndTime('충전량', '10.76kWh'),
-                  getTitleAndTime('충전금액', '2800원'),
+                  getTitleAndTime('충전시간', '00:30:50', Colors.black),
+                  getTitleAndTime('충전량', '10.76kWh', Colors.black),
+                  getTitleAndTime('충전금액', '2800원', Colors.blueAccent),
                 ],
               ),
             ),
@@ -60,13 +64,12 @@ class CustomDialog extends StatelessWidget {
       actions: [
         Expanded(
           child: ElevatedButton(
-
             onPressed: () {
               Navigator.of(context).pop(); // 다이얼로그 닫기
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent, // 파란색 버튼
-              minimumSize: Size(400,45),
+              backgroundColor: const Color(0xff0066ff),//Colors.blueAccent, // 파란색 버튼
+              minimumSize: const Size(400,45),
             ),
             child: const Text("확인", style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto)),
           ),
@@ -74,7 +77,7 @@ class CustomDialog extends StatelessWidget {
       ],
     );
   }
-  Widget getTitleAndTime(String title, String value) {
+  Widget getTitleAndTime(String title, String value, Color inputColor) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
@@ -86,7 +89,7 @@ class CustomDialog extends StatelessWidget {
                   fontFamily: GuiConstants.fontFamilyNoto),
               child: Text(title)),
           DefaultTextStyle(
-            style: const TextStyle(color: Colors.blueAccent,
+            style: TextStyle(color: inputColor,
                 fontSize: 15,
 
                 fontFamily: GuiConstants.fontFamilyNoto),
