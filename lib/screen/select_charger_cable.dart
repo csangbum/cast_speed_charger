@@ -40,6 +40,7 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
             highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
             splashColor: Colors.transparent, //클릭시 원형 이펙트
             onTap: () {
+              controller.setChargerState(1, ChargerState.selected);
               controller.setStatus(ChargingStatus.selectPayment);
               setState(() {
                 print('csangbum click movetoNextState');
@@ -69,6 +70,7 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
             splashColor: Colors.transparent, //클릭시 원형 이펙트
             onTap: () {
               controller.setStatus(ChargingStatus.selectPayment);
+              controller.setChargerState(2, ChargerState.selected);
               setState(() {
                 print('csangbum click movetoNextState');
                 widget.screenCallback();

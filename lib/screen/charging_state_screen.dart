@@ -3,6 +3,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:test3/constants/cast_color_const.dart';
 
+import '../charger_info.dart';
 import '../utils/utils.dart';
 import 'component/custom_dialog.dart';
 
@@ -21,6 +22,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
   final int ch2ChargingTime = 60;
   final int ch1ChargingEndTime = 4000;
   final int ch2ChargingEndTime = 2000;
+  ChargingController controller = ChargingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,15 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
+            child: controller.getChargerState(1) != ChargerState.charging ?
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+              ),
+              child: const Image(image: AssetImage('assets/c_type.png')),
+            )
+            :Container(
               decoration: const BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -130,7 +140,6 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                   ),
                   InkWell(
                     onTap: (){
-                      print('csangbum');
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -148,10 +157,24 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 20,),
+          controller.getChargerState(1) == ChargerState.charging && controller.getChargerState(2) == ChargerState.charging? Padding(
+          padding: const EdgeInsets.symmetric(vertical: 18.0),
+          child: Image(
+          image: const AssetImage('assets/OR.png'),
+          width: orWidth,
+          ),
+          ):const SizedBox(height: 20,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
+            child: controller.getChargerState(2) != ChargerState.charging ?
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+              ),
+              child: const Image(image: AssetImage('assets/b_type.png')),
+            ):
+            Container(
               decoration: const BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.all(Radius.circular(15)),

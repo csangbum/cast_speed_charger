@@ -3,7 +3,8 @@ import 'package:test3/constants/cast_color_const.dart';
 
 
 class CustomDialog extends StatelessWidget {
-  const CustomDialog({super.key});
+  CustomDialog({super.key, required this.okClickCallback});
+  late void Function() okClickCallback;
 
   @override
   Widget build(BuildContext context) {

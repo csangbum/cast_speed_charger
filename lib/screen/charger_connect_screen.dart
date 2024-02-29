@@ -17,10 +17,16 @@ class _ChargerConnectScreenState extends State<ChargerConnectScreen> {
   Widget build(BuildContext context) {
     print('csangbum ${MediaQuery.of(context).size.width}');
     return InkWell(
-      highlightColor: Colors.transparent, //¸ğ¼­¸®·Î ÆÛÁ®³ª°¡´Â ÀÌÆåÆ®
-      splashColor: Colors.transparent, //Å¬¸¯½Ã ¿øÇü ÀÌÆåÆ®
+      highlightColor: Colors.transparent, //ëª¨ì„œë¦¬ë¡œ í¼ì ¸ë‚˜ê°€ëŠ” ì´í™íŠ¸
+      splashColor: Colors.transparent, //í´ë¦­ì‹œ ì›í˜• ì´í™íŠ¸
       onTap: () {
         controller.setStatus(ChargingStatus.charging);
+        if (controller.getChargerState(1) == ChargerState.selected) {
+          controller.setChargerState(1, ChargerState.charging);
+        }
+        if (controller.getChargerState(2) == ChargerState.selected) {
+          controller.setChargerState(2, ChargerState.charging);
+        }
         setState(() {
           print('csangbum click movetoNextState');
           widget.screenCallback();
