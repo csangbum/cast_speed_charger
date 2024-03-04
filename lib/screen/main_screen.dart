@@ -21,6 +21,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int screenIndex = 0;
   ChargerInfo chargerInfo = ChargerInfo.getInstance();
+  PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,13 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           const StatusBarWidget(),
           Expanded(
-            // fit: FlexFit.tight,
-            // child: SelectPayCardScreen(),
-            child: IndexedStack(
-              index: getPageIndex(), // 현재 보여줄 위젯의 인덱스
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  screenIndex = index;
+                });
+              },
               children: [
                 SelectChargerCable(screenCallback: refreshScreen),
                 SelectPayCardScreen(screenCallback: refreshScreen),
@@ -44,13 +48,12 @@ class _MainScreenState extends State<MainScreen> {
                 ChargerConnectScreen(screenCallback: refreshScreen),
                 ChargingStateScreen(screenCallback: refreshScreen),
               ],
-            )
-            // ChargingStateScreen(),
+            ),
           ),
           NavigatorWidget(screenCallback: refreshScreen),
           const Padding(
             padding: EdgeInsets.only(bottom: 8.0),
-            child: Divider(color: CastProColor.dividerColor,height: 5,),
+            child: Divider(color: CastProColor.dividerColor, height: 5,),
           ),
           const BottomInfo(),
         ],
@@ -58,11 +61,22 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+  @override
+  void dispose() {
+    _pageController.dispose(); // 페이지 컨트롤러를 dispose 해주어야 합니다.
+    super.dispose();
+  }
+
   void goToHome() {
     Navigator.of(context).pop();
   }
 
   void refreshScreen() {
+    _pageController.animateToPage(
+      getPageIndex(),
+      duration: const Duration(milliseconds: 500), // 애니메이션 지속 시간 설정 (선택 사항)
+      curve: Curves.ease, // 애니메이션 커브 설정 (선택 사항)
+    );
     setState(() {
       print('csangbum refreshScreen');
     });

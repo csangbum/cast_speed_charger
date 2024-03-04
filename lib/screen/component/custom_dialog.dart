@@ -64,6 +64,7 @@ class CustomDialog extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // 다이얼로그 닫기
+                  okClickCallback();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼

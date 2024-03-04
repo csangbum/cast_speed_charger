@@ -29,6 +29,14 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
   Widget build(BuildContext context) {
     final double orWidth = Utils.getHorizonSize(orSizeRatio, context);
     double stopBtnWidth = Utils.getHorizonSize((248 / 1080 * 100), context);
+
+    // if (controller.getChargerState(1) != ChargerState.charging
+    //     && controller.getChargerState(2) != ChargerState.charging) {
+    //   Navigator.of(context).pop();
+    //   print('csangbum 2ch is not charging state');
+    //   return const SizedBox(width: 100, height: 200, child: Text('hi', style: TextStyle(color:Colors.white),),);
+    // }
+    print('csangbum 2ch is not charging ch1 ${controller.getChargerState(1)} ch2 ${controller.getChargerState(2)}');
     return Column(
       children: [
         Padding(
@@ -75,7 +83,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                       style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
                       child: Text("진행\r\n70%")),
                   circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
-                  backgroundColor: Color(0xff112f39), // 배경 색상
+                  backgroundColor: const Color(0xff112f39), // 배경 색상
                   progressColor: Colors.blue, // 진행 바 색상
                ),
               ),
@@ -100,10 +108,15 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return CustomDialog(okClickCallback: () {
+                          print('charger state');
                           controller.setChargerState(1, ChargerState.ready);
+                          if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
+                            controller.setStatus(ChargingStatus.selectCable);
+                          }
                           setState(() {
                             Navigator.of(context).pop(); // 다이얼로그 닫기
                           });
+                          refreshScreen();
                         },); // 위에서 정의한 다이얼로그 사용
                       },
                     );
@@ -129,119 +142,11 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
               color: Colors.black,
               borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: const TextSpan(
-                      text: '좌측 커넥터 ',
-                      style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '충전중',
-                          style: TextStyle(color: Colors.blue, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto), // 파란색으로 스타일링
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          getTitleAndTime('경과시간', ch1ElpsedTime, true),
-                          getTitleAndTime('충전시간', ch1ChargingTime, true),
-                          getTitleAndTime('남은시간', ch1ChargingEndTime, false),
-                        ]
-                    ),
-                    Center(
-                      child: CircularPercentIndicator(
-                        radius: 50.0, // 원형 진행 바의 반지름
-                        lineWidth: 17.0, // 진행 바의 두께
-                        percent: 0.7, // 진행 값 (0.0부터 1.0까지)
-                        center: const DefaultTextStyle(
-                            style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
-                            child: Text("진행\r\n70%")),
-                        circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
-                        backgroundColor: Colors.grey, // 배경 색상
-                        progressColor: Colors.blue, // 진행 바 색상
-                      ),
-                    )
-                  ],
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DefaultTextStyle(
-                              style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                              child: Text("충전량")),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              children: [
-                                Image(image: AssetImage('assets/charging_power_icon.png'), width: 12,),
-                                SizedBox(width: 10,),
-                                DefaultTextStyle(
-                                    style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                    child: Text("4.52 kw/h"))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DefaultTextStyle(
-                              style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                              child: Text("충전금액")),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              children: [
-                                Image(image: AssetImage('assets/charging_pay_icon.png'), width: 12,),
-                                SizedBox(width: 10,),
-                                DefaultTextStyle(
-                                    style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                    child: Text("10,000 원"))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                InkWell(
-                  onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return  CustomDialog(okClickCallback: () {  },); // 위에서 정의한 다이얼로그 사용
-                      },
-                    );
-                  },
-                  child: Image(
-                    width: stopBtnWidth,
-                    image: const AssetImage('assets/stop_btn.png'),
-                  ),
-                ),
-                const SizedBox(height: 10,)
-              ],
-            ),
+            child: const Image(image: AssetImage('assets/c_type.png')),
           ),
         ),
-        controller.getChargerState(1) == ChargerState.charging && controller.getChargerState(2) != ChargerState.charging? Padding(
-        padding: const EdgeInsets.symmetric(vertical: 18.0),
+        controller.getChargerState(1) != ChargerState.charging || controller.getChargerState(2) != ChargerState.charging? Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40.0),
         child: Image(
         image: const AssetImage('assets/OR.png'),
         width: orWidth,
@@ -323,11 +228,15 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return CustomDialog(okClickCallback: () {
+                          print('charger state');
                           controller.setChargerState(2, ChargerState.ready);
+                          if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
+                            controller.setStatus(ChargingStatus.selectCable);
+                          }
                           setState(() {
-
                             Navigator.of(context).pop(); // 다이얼로그 닫기
                           });
+                          refreshScreen();
                         },); // 위에서 정의한 다이얼로그 사용
                       },
                     );
@@ -353,23 +262,14 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
     );
   }
 
-  Widget getTitleAndTime(String title, int time, bool bIncrease) {
-    return Row(
-      children: [
-        DefaultTextStyle(
-            style: const TextStyle(color: Colors.white, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
-            child: Text(title)),
-        const SizedBox(width: 30,),
-        bIncrease? _ChargedTimeUp(preset:time, updateScreen: () {  },): _ChargedTimeDown(preset:time, updateScreen: () {  },),
-        // DefaultTextStyle(
-        //     style: const TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
-        //     child: Text(Utils.getHourFormat(time)),)
-      ],
-    );
-  }
-
   Widget getTimeWidget(int time, bool bIncrease) {
     return bIncrease? _ChargedTimeUp(preset:time, updateScreen: () {  },): _ChargedTimeDown(preset:time, updateScreen: () {  },);
+  }
+
+  void refreshScreen() {
+    setState(() {
+      print('csangbum refreshScreen');
+    });
   }
 }
 

@@ -15,7 +15,7 @@ class _ChargerConnectScreenState extends State<ChargerConnectScreen> {
   ChargingController controller = ChargingController();
   @override
   Widget build(BuildContext context) {
-    print('csangbum ${MediaQuery.of(context).size.width}');
+
     return InkWell(
       highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
       splashColor: Colors.transparent, //클릭시 원형 이펙트
@@ -27,6 +27,7 @@ class _ChargerConnectScreenState extends State<ChargerConnectScreen> {
         if (controller.getChargerState(2) == ChargerState.selected) {
           controller.setChargerState(2, ChargerState.charging);
         }
+        print('csangbum click ch1 ${controller.getChargerState(1)} ch2 ${controller.getChargerState(1)}');
         setState(() {
           print('csangbum click movetoNextState');
           widget.screenCallback();
