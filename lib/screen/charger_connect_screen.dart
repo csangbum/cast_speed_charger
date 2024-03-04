@@ -13,6 +13,16 @@ class ChargerConnectScreen extends StatefulWidget {
 
 class _ChargerConnectScreenState extends State<ChargerConnectScreen> {
   ChargingController controller = ChargingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (ChargerInfo.getInstance().isDemoMode) {
+      controller.setChargerState(1, ChargerState.charging);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 

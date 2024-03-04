@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:test3/charger_info.dart';
 import 'package:test3/screen/charger_connect_screen.dart';
@@ -22,6 +24,30 @@ class _MainScreenState extends State<MainScreen> {
   int screenIndex = 0;
   ChargerInfo chargerInfo = ChargerInfo.getInstance();
   PageController _pageController = PageController();
+  Timer? _timer;
+  ChargingController controller = ChargingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // 타이머 시작
+    if (ChargerInfo.getInstance().isDemoMode) {
+      _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+        controller.moveToNextState();
+        setState(() {
+          _pageController.animateToPage(
+            getPageIndex(),
+            duration: const Duration(milliseconds: 500), // 애니메이션 지속 시간 설정 (선택 사항)
+            curve: Curves.ease, // 애니메이션 커브 설정 (선택 사항)
+          );
+        });
+      });
+    } else {
+      if (_timer!= null && _timer!.isActive) {
+        _timer!.cancel();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const StatusBarWidget(),
+          StatusBarWidget(screenCallback: callback,),
           Expanded(
             child: PageView(
               controller: _pageController,
@@ -109,4 +135,28 @@ class _MainScreenState extends State<MainScreen> {
     }
     return index;
   }
+
+  void callback() {
+    print('csangbum callback ${ChargerInfo.getInstance().isDemoMode}');
+    if (ChargerInfo.getInstance().isDemoMode) {
+      _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+        controller.moveToNextState();
+        setState(() {
+          _pageController.animateToPage(
+            getPageIndex(),
+            duration: const Duration(milliseconds: 500), // 애니메이션 지속 시간 설정 (선택 사항)
+            curve: Curves.ease, // 애니메이션 커브 설정 (선택 사항)
+          );
+        });
+      });
+    } else {
+      if (_timer!= null && _timer!.isActive) {
+        print('csangbum cancel ${ChargerInfo.getInstance().isDemoMode}');
+        _timer!.cancel();
+      }
+    }
+
+  }
+
+
 }

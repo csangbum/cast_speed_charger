@@ -4,6 +4,7 @@ import 'package:test3/screen/main_screen.dart';
 import 'package:test3/utils/utils.dart';
 import 'package:video_player/video_player.dart';
 
+import 'charger_info.dart';
 import 'constants/cast_color_const.dart';
 import 'screen/component/status_bar_widget.dart';
 
@@ -89,7 +90,15 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const StatusBarWidget(),
+              StatusBarWidget(screenCallback: (){
+                String currentRouteName = ModalRoute.of(context)!.settings.name!;
+                print('csangbum Current route: $currentRouteName');
+                if (ChargerInfo.getInstance().isDemoMode ) {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                    return const MainScreen();
+                  }));
+                }
+              },),
               // const Divider(height: 3, color: CastProColor.dividerColor,),
               const SizedBox(height: 80,),
               const Image(
@@ -99,14 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
               // const Divider(height: 3, color: CastProColor.dividerColor,),
               Padding(
                   padding: const EdgeInsets.only(bottom: 0.0),
-                  // child: Center(
-                  //   child: _controller.value.isInitialized
-                  //       ? AspectRatio(
-                  //     aspectRatio: _controller.value.aspectRatio,
-                  //     child: VideoPlayer(_controller),
-                  //   )
-                  //       : CircularProgressIndicator(),
-                  // ),
                   child: Container(
                     alignment: Alignment.center,
                     decoration: const BoxDecoration(

@@ -77,7 +77,7 @@ class ChargingController {
         _currentStatus = ChargingStatus.charging;
         break;
       case ChargingStatus.charging:
-        //_currentStatus = ChargingStatus.chargingComplete;
+        _currentStatus = ChargingStatus.selectCable;
         break;
       case ChargingStatus.chargingComplete:
       // 현재 상태가 chargingComplete일 때는 다음 상태가 없으므로 변경하지 않음
@@ -113,6 +113,7 @@ class ChargerInfo {
   factory ChargerInfo() => _instance;
 
   ChargerInfo._internal();
+  bool isDemoMode = false;
 
   static ChargerInfo getInstance() {
     return _instance;
