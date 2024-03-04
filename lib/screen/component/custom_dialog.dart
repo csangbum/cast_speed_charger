@@ -20,67 +20,68 @@ class CustomDialog extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Padding(
           padding: const EdgeInsets.all(18.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
             children: [
-              RichText(
-                text: const TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: '충전',
-                      style: TextStyle(color: Colors.black, fontFamily: GuiConstants.fontFamilyNoto,fontSize: 25,fontWeight: FontWeight.w700, ),
-                    ),
-                    TextSpan(
-                      text: '완료',
-                      style: TextStyle(color: Colors.blueAccent, fontFamily: GuiConstants.fontFamilyNoto,fontSize: 25,fontWeight: FontWeight.w700, ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8,),
-              const Center(
-                  child: DefaultTextStyle(
-                    style: TextStyle(
-                    color: Colors.grey,
+              const Image(image: AssetImage('assets/sceen07_popup.png')),
+              const Positioned(
+                top: 145,
+                right: 40,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
                     fontFamily: GuiConstants.fontFamilyNoto,
-                    fontSize: 15),
-                    child: Text("충전내역을 확인하세요"))),
-              const SizedBox(height: 20), // 간격 추가
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: Color(0xffececec),
-                ),
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    getTitleAndTime('충전시간', '00:30:50', Colors.black),
-                    getTitleAndTime('충전량', '10.76kWh', Colors.black),
-                    getTitleAndTime('충전금액', '2800원', Colors.blueAccent),
-                  ],
+                  ),
+                  child: Text('00:30:50'),
                 ),
               ),
-              const SizedBox(height: 20,),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // 다이얼로그 닫기
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff0066ff),//Colors.blueAccent, // 파란색 버튼
-                        minimumSize: const Size(400,45),
-                      ),
-                      child: const Text("확인", style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto)),
+              const Positioned(
+                top: 175,
+                right: 40,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('10.76kWh'),
+                ),
+              ),
+              const Positioned(
+                top: 205,
+                right: 40,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 16,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('2800원'),
+                ),
+              ),
+              Positioned(
+                bottom: 20,
+                left: 20,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // 다이얼로그 닫기
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
+                    minimumSize: const Size(330, 45),
+                  ),
+                  child: const Text(
+                    "확인",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontFamily: GuiConstants.fontFamilyNoto,
                     ),
                   ),
-                ],
+                ),
               ),
             ],
-          ),
+          )
         ),
       ),
     );
