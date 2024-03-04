@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../charger_info.dart';
@@ -12,6 +14,8 @@ class StatusBarWidget extends StatefulWidget {
 
 class _StatusBarWidgetState extends State<StatusBarWidget> {
   ChargerInfo chargerInfo = ChargerInfo.getInstance();
+  Timer? _timer;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,11 +24,17 @@ class _StatusBarWidgetState extends State<StatusBarWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Icon(Icons.wifi, color: Colors.white,),
-          InkWell(
-            onTap: (){
-              _showDemoDialog(context);
+          GestureDetector(
+            onTapDown: (_) {
+              _timer = Timer(const Duration(seconds: 3), () {
+                _showDemoDialog(context);
+              });
             },
-              child: const Icon(Icons.settings_applications, color: Colors.white,)),
+            onTapUp: (_) {
+              _timer?.cancel();
+            },
+            child: const Icon(Icons.settings_applications, color: Colors.white,),
+          ),
         ],),
     );
   }
