@@ -23,275 +23,333 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
   final int ch1ChargingEndTime = 4000;
   final int ch2ChargingEndTime = 2000;
   ChargingController controller = ChargingController();
+  final double orSizeRatio = 355/1080*100;
 
   @override
   Widget build(BuildContext context) {
+    final double orWidth = Utils.getHorizonSize(orSizeRatio, context);
     double stopBtnWidth = Utils.getHorizonSize((248 / 1080 * 100), context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 38.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: controller.getChargerState(1) != ChargerState.charging ?
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: controller.getChargerState(1) == ChargerState.charging ?
+          Stack(
+            children: [
+              const Image(image: AssetImage('assets/left_charge_screen.png')),
+              const Positioned(
+                top: 188,
+                left: 45,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('4.52 kw/h'),
+                ),
               ),
-              child: const Image(image: AssetImage('assets/c_type.png')),
-            )
-            :Container(
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
+              Positioned(
+                top: 65,
+                left: 90,
+                child: getTimeWidget(0,true),
               ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: const TextSpan(
-                        text: '좌측 커넥터 ',
-                        style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '충전중',
-                            style: TextStyle(color: Colors.blue, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto), // 파란색으로 스타일링
-                          ),
-                        ],
-                      ),
+              Positioned(
+                top: 94,
+                left: 90,
+                child: getTimeWidget(0,true),
+              ),
+              Positioned(
+                top: 124,
+                left: 90,
+                child: getTimeWidget(4000,false),
+              ),
+              Positioned(
+                right:40,
+                top:60,
+                child: CircularPercentIndicator(
+                  radius: 50.0, // 원형 진행 바의 반지름
+                  lineWidth: 17.0, // 진행 바의 두께
+                  percent: 0.7, // 진행 값 (0.0부터 1.0까지)
+                  center: const DefaultTextStyle(
+                      style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
+                      child: Text("진행\r\n70%")),
+                  circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
+                  backgroundColor: Color(0xff112f39), // 배경 색상
+                  progressColor: Colors.blue, // 진행 바 색상
+               ),
+              ),
+              const Positioned(
+                top: 188,
+                right: 53,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('2800원'),
+                ),
+              ),
+              Positioned(
+                bottom: 5,
+                left: 75,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CustomDialog(okClickCallback: () {
+                          controller.setChargerState(1, ChargerState.ready);
+                          setState(() {
+                            Navigator.of(context).pop(); // 다이얼로그 닫기
+                          });
+                        },); // 위에서 정의한 다이얼로그 사용
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
+                    minimumSize: const Size(200, 35),
+                  ),
+                  child: const Text(
+                    "확인",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontFamily: GuiConstants.fontFamilyNoto,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            getTitleAndTime('경과시간', ch1ElpsedTime, true),
-                            getTitleAndTime('충전시간', ch1ChargingTime, true),
-                            getTitleAndTime('남은시간', ch1ChargingEndTime, false),
-                          ]
-                      ),
-                      Center(
-                        child: CircularPercentIndicator(
-                          radius: 50.0, // 원형 진행 바의 반지름
-                          lineWidth: 17.0, // 진행 바의 두께
-                          percent: 0.7, // 진행 값 (0.0부터 1.0까지)
-                          center: const DefaultTextStyle(
-                              style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
-                              child: Text("진행\r\n70%")),
-                          circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
-                          backgroundColor: Colors.grey, // 배경 색상
-                          progressColor: Colors.blue, // 진행 바 색상
-                        ),
-                      )
-                    ],
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DefaultTextStyle(
-                                style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                child: Text("충전량")),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8.0),
-                              child: Row(
-                                children: [
-                                  Image(image: AssetImage('assets/charging_power_icon.png'), width: 12,),
-                                  SizedBox(width: 10,),
-                                  DefaultTextStyle(
-                                      style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                      child: Text("4.52 kw/h"))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DefaultTextStyle(
-                                style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                child: Text("충전금액")),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8.0),
-                              child: Row(
-                                children: [
-                                  Image(image: AssetImage('assets/charging_pay_icon.png'), width: 12,),
-                                  SizedBox(width: 10,),
-                                  DefaultTextStyle(
-                                      style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                      child: Text("10,000 원"))
-                                ],
-                              ),
-                            )
-                          ],
+                ),
+              ),
+            ],
+          )
+          :Container(
+            decoration: const BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: const TextSpan(
+                      text: '좌측 커넥터 ',
+                      style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '충전중',
+                          style: TextStyle(color: Colors.blue, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto), // 파란색으로 스타일링
                         ),
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const CustomDialog(); // 위에서 정의한 다이얼로그 사용
-                        },
-                      );
-                    },
-                    child: Image(
-                      width: stopBtnWidth,
-                      image: const AssetImage('assets/stop_btn.png'),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          getTitleAndTime('경과시간', ch1ElpsedTime, true),
+                          getTitleAndTime('충전시간', ch1ChargingTime, true),
+                          getTitleAndTime('남은시간', ch1ChargingEndTime, false),
+                        ]
                     ),
-                  ),
-                  const SizedBox(height: 10,)
-                ],
-              ),
-            ),
-          ),
-          controller.getChargerState(1) == ChargerState.charging && controller.getChargerState(2) == ChargerState.charging? Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18.0),
-          child: Image(
-          image: const AssetImage('assets/OR.png'),
-          width: orWidth,
-          ),
-          ):const SizedBox(height: 20,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: controller.getChargerState(2) != ChargerState.charging ?
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-              ),
-              child: const Image(image: AssetImage('assets/b_type.png')),
-            ):
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: const TextSpan(
-                        text: '우측 커넥터 ',
-                        style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '충전중',
-                            style: TextStyle(color: Colors.blue, fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto), // 파란색으로 스타일링
-                          ),
-                        ],
+                    Center(
+                      child: CircularPercentIndicator(
+                        radius: 50.0, // 원형 진행 바의 반지름
+                        lineWidth: 17.0, // 진행 바의 두께
+                        percent: 0.7, // 진행 값 (0.0부터 1.0까지)
+                        center: const DefaultTextStyle(
+                            style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
+                            child: Text("진행\r\n70%")),
+                        circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
+                        backgroundColor: Colors.grey, // 배경 색상
+                        progressColor: Colors.blue, // 진행 바 색상
                       ),
-                    ),
-                  ),
-                  Row(
+                    )
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            getTitleAndTime('경과시간', ch2ElpsedTime, true),
-                            getTitleAndTime('충전시간', ch2ChargingTime, true),
-                            getTitleAndTime('남은시간', ch2ChargingEndTime, false),
-                          ]
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          DefaultTextStyle(
+                              style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
+                              child: Text("충전량")),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              children: [
+                                Image(image: AssetImage('assets/charging_power_icon.png'), width: 12,),
+                                SizedBox(width: 10,),
+                                DefaultTextStyle(
+                                    style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
+                                    child: Text("4.52 kw/h"))
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      Center(
-                        child: CircularPercentIndicator(
-                          radius: 50.0, // 원형 진행 바의 반지름
-                          lineWidth: 17.0, // 진행 바의 두께
-                          percent: 0.4, // 진행 값 (0.0부터 1.0까지)
-                          center: const DefaultTextStyle(
-                              style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
-                              child: Text("진행\r\n40%")),
-                          circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
-                          backgroundColor: Colors.grey, // 배경 색상
-                          progressColor: Colors.blue, // 진행 바 색상
-                        ),
-                      )
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          DefaultTextStyle(
+                              style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
+                              child: Text("충전금액")),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              children: [
+                                Image(image: AssetImage('assets/charging_pay_icon.png'), width: 12,),
+                                SizedBox(width: 10,),
+                                DefaultTextStyle(
+                                    style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
+                                    child: Text("10,000 원"))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 18.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DefaultTextStyle(
-                                style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                child: Text("충전량")),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4),
-                              child: Row(
-                                children: [
-                                  Image(image: AssetImage('assets/charging_power_icon.png'), width: 12,),
-                                  SizedBox(width: 10,),
-                                  DefaultTextStyle(
-                                      style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                      child: Text("4.52 kw/h"))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DefaultTextStyle(
-                                style: TextStyle(color: Colors.grey, fontSize: 10, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                child: Text("충전금액")),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4.0),
-                              child: Row(
-                                children: [
-                                  Image(image: AssetImage('assets/charging_pay_icon.png'), width: 12,),
-                                  SizedBox(width: 10,),
-                                  DefaultTextStyle(
-                                      style: TextStyle(color: Colors.white, fontSize: 15, height: 1.0, fontFamily: GuiConstants.fontFamilyNoto),
-                                      child: Text("10,000 원"))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                ),
+                InkWell(
+                  onTap: (){
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return  CustomDialog(okClickCallback: () {  },); // 위에서 정의한 다이얼로그 사용
+                      },
+                    );
+                  },
+                  child: Image(
+                    width: stopBtnWidth,
+                    image: const AssetImage('assets/stop_btn.png'),
                   ),
-                  InkWell(
-                    onTap: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const CustomDialog(); // 위에서 정의한 다이얼로그 사용
-                        },
-                      );
-                    },
-                    child: Image(
-                      width: stopBtnWidth,
-                      image: const AssetImage('assets/stop_btn.png'),
-                    ),
-                  ),
-                  const SizedBox(height: 10,)
-                ],
-              ),
+                ),
+                const SizedBox(height: 10,)
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+        controller.getChargerState(1) == ChargerState.charging && controller.getChargerState(2) != ChargerState.charging? Padding(
+        padding: const EdgeInsets.symmetric(vertical: 18.0),
+        child: Image(
+        image: const AssetImage('assets/OR.png'),
+        width: orWidth,
+        ),
+        ):const SizedBox(height: 20,),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: controller.getChargerState(2) != ChargerState.charging ?
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
+            child: const Image(image: AssetImage('assets/b_type.png')),
+          ):
+          Stack(
+            children: [
+              const Image(image: AssetImage('assets/right_charge_screen.png')),
+              Positioned(
+                top: 65,
+                left: 90,
+                child: getTimeWidget(0,true),
+              ),
+              Positioned(
+                top: 94,
+                left: 90,
+                child: getTimeWidget(0,true),
+              ),
+              Positioned(
+                top: 124,
+                left: 90,
+                child: getTimeWidget(2000,false),
+              ),
+              Positioned(
+                right:40,
+                top:60,
+                child: CircularPercentIndicator(
+                  radius: 50.0, // 원형 진행 바의 반지름
+                  lineWidth: 17.0, // 진행 바의 두께
+                  percent: 0.4, // 진행 값 (0.0부터 1.0까지)
+                  center: const DefaultTextStyle(
+                      style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
+                      child: Text("진행\r\n40%")),
+                  circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
+                  backgroundColor: Color(0xff112f39), // 배경 색상
+                  progressColor: Colors.blue, // 진행 바 색상
+                ),
+              ),
+              const Positioned(
+                top: 188,
+                left: 45,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('10.76 kWh'),
+                ),
+              ),
+              const Positioned(
+                top: 188,
+                right: 53,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('2800원'),
+                ),
+              ),
+              Positioned(
+                bottom: 5,
+                left: 75,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CustomDialog(okClickCallback: () {
+                          controller.setChargerState(2, ChargerState.ready);
+                          setState(() {
+
+                            Navigator.of(context).pop(); // 다이얼로그 닫기
+                          });
+                        },); // 위에서 정의한 다이얼로그 사용
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
+                    minimumSize: const Size(200, 35),
+                  ),
+                  child: const Text(
+                    "확인",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontFamily: GuiConstants.fontFamilyNoto,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -308,6 +366,10 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
         //     child: Text(Utils.getHourFormat(time)),)
       ],
     );
+  }
+
+  Widget getTimeWidget(int time, bool bIncrease) {
+    return bIncrease? _ChargedTimeUp(preset:time, updateScreen: () {  },): _ChargedTimeDown(preset:time, updateScreen: () {  },);
   }
 }
 
@@ -347,7 +409,7 @@ class _ChargedTimeUpState extends State<_ChargedTimeUp> {
         return Text(
           displayTime,
           textAlign: TextAlign.right,
-          style: const TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
+          style: const TextStyle(color: Colors.cyanAccent, fontSize: 12, fontFamily: GuiConstants.fontFamilyNoto),
         );
       },
     );
@@ -408,7 +470,7 @@ class _ChargedTimeDownState extends State<_ChargedTimeDown> {
         return Text(
           displayTime,
           textAlign: TextAlign.right,
-          style: const TextStyle(color: Colors.cyanAccent, fontSize: 15, fontFamily: GuiConstants.fontFamilyNoto),
+          style: const TextStyle(color: Colors.cyanAccent, fontSize: 12, fontFamily: GuiConstants.fontFamilyNoto),
         );
       },
     );

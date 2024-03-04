@@ -13,6 +13,7 @@ class InputPhoneNumberDialog extends StatefulWidget {
 class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
   String phoneNumber = '';
   TextEditingController textEditingController = TextEditingController();
+  final double spaceValue = 45;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +26,16 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
         children: [
           const Image(image: AssetImage('assets/sceen03-2_popup.png')),
           Positioned(
-            top: 120,
-            left: 40,
+            top: 86,
+            left: 25,
             child: SizedBox(
-              height: 120,
-              width: 300,
+              height: 90,
+              width: 255,
               child: TextField(
-                style: const TextStyle(fontSize: 25, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
+                style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
                 controller: textEditingController,
                 decoration: const InputDecoration(
+                  hintStyle: TextStyle(color: Colors.grey),
                   hintText: '-없이 번호입력',
                   //labelText: '휴대폰 번호',
                 ),
@@ -42,43 +44,40 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
           ),
 
           Positioned(
-            top: 160,
-            // right: 40,
+            top: 120,
+            left: 5,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40),
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
                 children: [
                   const SizedBox(height: 20),
                   Wrap(
-                    spacing: 50, // 간격 설정
+                    spacing: 40, // 간격 설정
                     children: [
                       buildButton('1'),
                       buildButton('2'),
                       buildButton('3'),
                     ],
                   ),
-                  const SizedBox(height: 15),
                   Wrap(
-                    spacing: 50, // 간격 설정
+                    spacing: 40, // 간격 설정
                     children: [
                       buildButton('4'),
                       buildButton('5'),
                       buildButton('6'),
                     ],
                   ),
-                  const SizedBox(height: 15),
                   Wrap(
-                    spacing: 50, // 간격 설정
+                    spacing: 40, // 간격 설정
                     children: [
                       buildButton('7'),
                       buildButton('8'),
                       buildButton('9'),
                     ],
                   ),
-                  const SizedBox(height: 15),
                   Wrap(
-                    spacing: 50, // 간격 설정
+                    spacing: 40, // 간격 설정
                     children: [
                       buildButton('00'),
                       buildButton('0'),
@@ -90,8 +89,8 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
             ),
           ),
           Positioned(
-            bottom: 20,
-            left: 80,
+            bottom: 15,
+            left: 25,
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Row(
@@ -125,8 +124,6 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
         ],
       ),
     );
-    ;
-
   }
   Widget buildButton(String text) {
     return TextButton(
@@ -143,8 +140,8 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
         },
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all<Size>(
-          const Size(70, 70),)), // 원하는 너비와 높이로 설정
-        child: Text(text, style: const TextStyle(fontSize: 30, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black, ),));
+          const Size(50, 50),)), // 원하는 너비와 높이로 설정
+        child: Text(text, style: const TextStyle(fontSize: 26, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black, ),));
   }
 }
 

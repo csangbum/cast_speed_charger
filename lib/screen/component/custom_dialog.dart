@@ -18,70 +18,68 @@ class CustomDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0), // 테두리를 둥글게 만듦
         ),
         width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Stack(
-            children: [
-              const Image(image: AssetImage('assets/sceen07_popup.png')),
-              const Positioned(
-                top: 145,
-                right: 40,
-                child: DefaultTextStyle(
+        child: Stack(
+          children: [
+            const Image(image: AssetImage('assets/sceen07_popup.png')),
+            const Positioned(
+              top: 120,
+              right: 40,
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontFamily: GuiConstants.fontFamilyNoto,
+                ),
+                child: Text('00:30:50'),
+              ),
+            ),
+            const Positioned(
+              top: 150,
+              right: 40,
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontFamily: GuiConstants.fontFamilyNoto,
+                ),
+                child: Text('10.76kWh'),
+              ),
+            ),
+            const Positioned(
+              top: 175,
+              right: 40,
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  color: Colors.blueAccent,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: GuiConstants.fontFamilyNoto,
+                ),
+                child: Text('2800원'),
+              ),
+            ),
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // 다이얼로그 닫기
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
+                  minimumSize: const Size(260, 45),
+                ),
+                child: const Text(
+                  "확인",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 15,
                     fontFamily: GuiConstants.fontFamilyNoto,
                   ),
-                  child: Text('00:30:50'),
                 ),
               ),
-              const Positioned(
-                top: 175,
-                right: 40,
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    fontFamily: GuiConstants.fontFamilyNoto,
-                  ),
-                  child: Text('10.76kWh'),
-                ),
-              ),
-              const Positioned(
-                top: 205,
-                right: 40,
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                    color: Colors.blueAccent,
-                    fontSize: 16,
-                    fontFamily: GuiConstants.fontFamilyNoto,
-                  ),
-                  child: Text('2800원'),
-                ),
-              ),
-              Positioned(
-                bottom: 20,
-                left: 20,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // 다이얼로그 닫기
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
-                    minimumSize: const Size(330, 45),
-                  ),
-                  child: const Text(
-                    "확인",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontFamily: GuiConstants.fontFamilyNoto,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          )
+            ),
+          ],
         ),
       ),
     );
