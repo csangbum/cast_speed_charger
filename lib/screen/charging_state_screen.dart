@@ -79,9 +79,21 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                   radius: 50.0, // 원형 진행 바의 반지름
                   lineWidth: 17.0, // 진행 바의 두께
                   percent: 0.7, // 진행 값 (0.0부터 1.0까지)
-                  center: const DefaultTextStyle(
-                      style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
-                      child: Text("진행\r\n70%")),
+                  center:
+                  const Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '충전속도',
+                          style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 11), // "진행" 텍스트의 색상을 파랑색으로 설정
+                        ),
+                        TextSpan(
+                          text: '\n  70%',
+                          style: TextStyle(color: Colors.cyanAccent, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "70%" 텍스트의 색상을 검정색으로 설정
+                        ),
+                      ],
+                    ),
+                  ),
                   circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
                   backgroundColor: const Color(0xff112f39), // 배경 색상
                   progressColor: Colors.blue, // 진행 바 색상
@@ -100,38 +112,31 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                 ),
               ),
               Positioned(
-                bottom: 5,
-                left: 75,
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomDialog(okClickCallback: () {
-                          print('charger state');
-                          controller.setChargerState(1, ChargerState.ready);
-                          if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
-                            controller.setStatus(ChargingStatus.selectCable);
-                          }
-                          setState(() {
-                            Navigator.of(context).pop(); // 다이얼로그 닫기
-                          });
-                          refreshScreen();
-                        },); // 위에서 정의한 다이얼로그 사용
-                      },
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
-                    minimumSize: const Size(200, 35),
-                  ),
-                  child: const Text(
-                    "확인",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontFamily: GuiConstants.fontFamilyNoto,
-                    ),
+                bottom: 10,
+                left: 115,
+                child: SizedBox(
+                  height: 40,
+                  child:
+                  InkWell(
+                    onTap: (){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomDialog(okClickCallback: () {
+                            print('charger state');
+                            controller.setChargerState(2, ChargerState.ready);
+                            if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
+                              controller.setStatus(ChargingStatus.selectCable);
+                            }
+                            setState(() {
+                              Navigator.of(context).pop(); // 다이얼로그 닫기
+                            });
+                            refreshScreen();
+                          },); // 위에서 정의한 다이얼로그 사용
+                        },
+                      );
+                    } ,
+                    child: const Image(image: AssetImage('assets/stop_btn.png')),
                   ),
                 ),
               ),
@@ -187,9 +192,21 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                   radius: 50.0, // 원형 진행 바의 반지름
                   lineWidth: 17.0, // 진행 바의 두께
                   percent: 0.4, // 진행 값 (0.0부터 1.0까지)
-                  center: const DefaultTextStyle(
-                      style: TextStyle(color: Colors.cyanAccent, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto),
-                      child: Text("진행\r\n40%")),
+                  center:
+                  const Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '충전속도',
+                          style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 11), // "진행" 텍스트의 색상을 파랑색으로 설정
+                        ),
+                        TextSpan(
+                          text: '\n  40%',
+                          style: TextStyle(color: Colors.cyanAccent, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "70%" 텍스트의 색상을 검정색으로 설정
+                        ),
+                      ],
+                    ),
+                  ),
                   circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
                   backgroundColor: Color(0xff112f39), // 배경 색상
                   progressColor: Colors.blue, // 진행 바 색상
@@ -220,39 +237,32 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                 ),
               ),
               Positioned(
-                bottom: 5,
-                left: 75,
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomDialog(okClickCallback: () {
-                          print('charger state');
-                          controller.setChargerState(2, ChargerState.ready);
-                          if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
-                            controller.setStatus(ChargingStatus.selectCable);
-                          }
-                          setState(() {
-                            Navigator.of(context).pop(); // 다이얼로그 닫기
-                          });
-                          refreshScreen();
-                        },); // 위에서 정의한 다이얼로그 사용
-                      },
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
-                    minimumSize: const Size(200, 35),
-                  ),
-                  child: const Text(
-                    "확인",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontFamily: GuiConstants.fontFamilyNoto,
+                bottom: 10,
+                left: 115,
+                child: SizedBox(
+                  height: 40,
+                  child:
+                    InkWell(
+                      onTap: (){
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CustomDialog(okClickCallback: () {
+                              print('charger state');
+                              controller.setChargerState(2, ChargerState.ready);
+                              if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
+                                controller.setStatus(ChargingStatus.selectCable);
+                              }
+                              setState(() {
+                                Navigator.of(context).pop(); // 다이얼로그 닫기
+                              });
+                              refreshScreen();
+                            },); // 위에서 정의한 다이얼로그 사용
+                          },
+                        );
+                      } ,
+                      child: Image(image: AssetImage('assets/stop_btn.png')),
                     ),
-                  ),
                 ),
               ),
             ],

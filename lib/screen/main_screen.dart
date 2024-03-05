@@ -61,6 +61,7 @@ class _MainScreenState extends State<MainScreen> {
           StatusBarWidget(screenCallback: callback,),
           Expanded(
             child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _pageController,
               onPageChanged: (index) {
                 setState(() {
