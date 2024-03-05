@@ -78,11 +78,14 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           NavigatorWidget(screenCallback: refreshScreen),
+          // const Padding(
+          //   padding: EdgeInsets.only(bottom: 8.0),
+          //   child: Divider(color: CastProColor.dividerColor, height: 5,),
+          // ),
           const Padding(
-            padding: EdgeInsets.only(bottom: 8.0),
-            child: Divider(color: CastProColor.dividerColor, height: 5,),
+            padding: EdgeInsets.only(top:8.0, bottom: 8),
+            child: BottomInfo(),
           ),
-          const BottomInfo(),
         ],
       ),
     );

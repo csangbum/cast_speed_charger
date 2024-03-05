@@ -39,6 +39,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
     // }
     print('csangbum 2ch is not charging ch1 ${controller.getChargerState(1)} ch2 ${controller.getChargerState(2)}');
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -119,8 +120,8 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                 ),
               ),
               Positioned(
-                bottom: 15,
-                left: 155,
+                bottom: 10,
+                left: 150,
                 child: SizedBox(
                   height: 35,
                   child:
@@ -248,10 +249,10 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                 ),
               ),
               Positioned(
-                bottom: 15,
-                left: 155,
+                bottom: 10,
+                left: 150,
                 child: SizedBox(
-                  height: 35,
+                  height: 40,
                   child:
                   InkWell(
                     onTap: (){
