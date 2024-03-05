@@ -26,11 +26,11 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
         children: [
           const Image(image: AssetImage('assets/sceen03-2_popup.png')),
           Positioned(
-            top: 86,
-            left: 25,
+            top: 133,
+            left: 35,
             child: SizedBox(
               height: 90,
-              width: 255,
+              width: 330,
               child: TextField(
                 style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
                 controller: textEditingController,
@@ -44,44 +44,47 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
           ),
 
           Positioned(
-            top: 120,
-            left: 5,
+            top: 170,
+            left: 10,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
                 children: [
                   const SizedBox(height: 20),
                   Wrap(
-                    spacing: 40, // 간격 설정
+                    spacing: 70, // 간격 설정
                     children: [
                       buildButton('1'),
                       buildButton('2'),
                       buildButton('3'),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   Wrap(
-                    spacing: 40, // 간격 설정
+                    spacing: 70, // 간격 설정
                     children: [
                       buildButton('4'),
                       buildButton('5'),
                       buildButton('6'),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   Wrap(
-                    spacing: 40, // 간격 설정
+                    spacing: 70, // 간격 설정
                     children: [
                       buildButton('7'),
                       buildButton('8'),
                       buildButton('9'),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   Wrap(
-                    spacing: 40, // 간격 설정
+                    spacing: 70, // 간격 설정
                     children: [
                       buildButton('00'),
                       buildButton('0'),
-                      buildButton('del'),
+                      buildButton('d'),
                     ],
                   )
                 ],
@@ -90,7 +93,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
           ),
           Positioned(
             bottom: 15,
-            left: 25,
+            left: 75,
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Row(
@@ -141,7 +144,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all<Size>(
           const Size(50, 50),)), // 원하는 너비와 높이로 설정
-        child: Text(text, style: const TextStyle(fontSize: 26, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black, ),));
+        child: Text(text, style: const TextStyle(fontSize: 28, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black, ),));
   }
 }
 

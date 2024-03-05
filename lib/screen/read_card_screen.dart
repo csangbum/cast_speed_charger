@@ -15,8 +15,8 @@ class _ReadCardScreenState extends State<ReadCardScreen> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      highlightColor: Colors.transparent, //¸ğ¼­¸®·Î ÆÛÁ®³ª°¡´Â ÀÌÆåÆ®
-      splashColor: Colors.transparent, //Å¬¸¯½Ã ¿øÇü ÀÌÆåÆ®
+      highlightColor: Colors.transparent, //ëª¨ì„œë¦¬ë¡œ í¼ì ¸ë‚˜ê°€ëŠ” ì´í™íŠ¸
+      splashColor: Colors.transparent, //í´ë¦­ì‹œ ì›í˜• ì´í™íŠ¸
       onTap: () {
         controller.setStatus(ChargingStatus.connectCable);
         setState(() {

@@ -40,27 +40,27 @@ class _StatusBarWidgetState extends State<StatusBarWidget> {
   }
 
   void _showDemoDialog(BuildContext context) {
-    bool normalModeChecked = !chargerInfo.isDemoMode; // ÀÏ¹İ ¸ğµå Ã¼Å© »óÅÂ
-    bool demoModeChecked = chargerInfo.isDemoMode; // µ¥¸ğ ¸ğµå Ã¼Å© »óÅÂ
+    bool normalModeChecked = !chargerInfo.isDemoMode; // ì¼ë°˜ ëª¨ë“œ ì²´í¬ ìƒíƒœ
+    bool demoModeChecked = chargerInfo.isDemoMode; // ë°ëª¨ ëª¨ë“œ ì²´í¬ ìƒíƒœ
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Center(child: Text('¸ğµå ¼±ÅÃ')),
+          title: Center(child: Text('ëª¨ë“œ ì„ íƒ')),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CheckboxListTile(
-                    title: Text('ÀÏ¹İ ¸ğµå'),
+                    title: Text('ì¼ë°˜ ëª¨ë“œ'),
                     value: !chargerInfo.isDemoMode,
                     onChanged: (value) {
                       setState(() {
                         normalModeChecked = value!;
                         if (value) {
-                          // 'ÀÏ¹İ ¸ğµå'°¡ ¼±ÅÃµÇ¸é 'µ¥¸ğ ¸ğµå'´Â ÇØÁ¦
+                          // 'ì¼ë°˜ ëª¨ë“œ'ê°€ ì„ íƒë˜ë©´ 'ë°ëª¨ ëª¨ë“œ'ëŠ” í•´ì œ
                           demoModeChecked = false;
                           chargerInfo.isDemoMode = false;
                         } else {
@@ -70,13 +70,13 @@ class _StatusBarWidgetState extends State<StatusBarWidget> {
                     },
                   ),
                   CheckboxListTile(
-                    title: Text('µ¥¸ğ ¸ğµå'),
+                    title: Text('ë°ëª¨ ëª¨ë“œ'),
                     value: chargerInfo.isDemoMode,
                     onChanged: (value) {
                       setState(() {
                         // chargerInfo.isDemoMode = value!;
                         if (value!) {
-                          // 'µ¥¸ğ ¸ğµå'°¡ ¼±ÅÃµÇ¸é 'ÀÏ¹İ ¸ğµå'´Â ÇØÁ¦
+                          // 'ë°ëª¨ ëª¨ë“œ'ê°€ ì„ íƒë˜ë©´ 'ì¼ë°˜ ëª¨ë“œ'ëŠ” í•´ì œ
                           chargerInfo.isDemoMode = true;
                         } else {
                           chargerInfo.isDemoMode = false;
@@ -91,18 +91,18 @@ class _StatusBarWidgetState extends State<StatusBarWidget> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // ´ÙÀÌ¾ó·Î±× ´İ±â
+                Navigator.of(context).pop(); // ë‹¤ì´ì–¼ë¡œê·¸ ë‹«ê¸°
                 widget.screenCallback();
               },
-              child: Text('Ãë¼Ò'),
+              child: Text('ì·¨ì†Œ'),
             ),
             TextButton(
               onPressed: () {
-                // ¼±ÅÃµÈ ¸ğµå¿¡ ´ëÇÑ Ã³¸®
-                Navigator.of(context).pop(); // ´ÙÀÌ¾ó·Î±× ´İ±â
+                // ì„ íƒëœ ëª¨ë“œì— ëŒ€í•œ ì²˜ë¦¬
+                Navigator.of(context).pop(); // ë‹¤ì´ì–¼ë¡œê·¸ ë‹«ê¸°
                 widget.screenCallback();
               },
-              child: Text('È®ÀÎ'),
+              child: Text('í™•ì¸'),
             ),
           ],
         );

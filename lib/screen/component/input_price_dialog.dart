@@ -24,8 +24,8 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
         children: [
           const Image(image: AssetImage('assets/sceen03-1_popup.png')),
           const Positioned(
-            top: 80,
-            left: 65,
+            top: 108,
+            left: 80,
             child: DefaultTextStyle(
               style: TextStyle(
                 color: Colors.black,
@@ -36,8 +36,8 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
             ),
           ),
           const Positioned(
-            top: 80,
-            right: 45,
+            top: 108,
+            right: 85,
             child: DefaultTextStyle(
               style: TextStyle(
                 color: Colors.black,
@@ -48,11 +48,11 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
             ),
           ),
           Positioned(
-            top: 131,
+            top: 190,
             left: 25,
             child: SizedBox(
               height: 120,
-              width: 255,
+              width: 346,
               child: TextField(
                 style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
                 controller: textEditingController,
@@ -71,40 +71,42 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
               ),
             ),
           Positioned(
-            top: 180,
-            left: 5,
+            bottom: 90,
+            left: 0,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
                 children: [
-                  const SizedBox(height: 10),
                   Wrap(
-                    spacing: 30, // 간격 설정
+                    spacing: 65, // 간격 설정
                     children: [
                       buildButton('1'),
                       buildButton('2'),
                       buildButton('3'),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   Wrap(
-                    spacing: 30, // 간격 설정
+                    spacing: 65, // 간격 설정
                     children: [
                       buildButton('4'),
                       buildButton('5'),
                       buildButton('6'),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   Wrap(
-                    spacing: 30, // 간격 설정
+                    spacing: 65, // 간격 설정
                     children: [
                       buildButton('7'),
                       buildButton('8'),
                       buildButton('9'),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   Wrap(
-                    spacing: 30, // 간격 설정
+                    spacing: 65, // 간격 설정
                     children: [
                       buildButton('00'),
                       buildButton('0'),
@@ -117,7 +119,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
           ),
           Positioned(
             bottom: 20,
-            left: 25,
+            left: 75,
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Row(
@@ -167,7 +169,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
         },
         style: TextButton.styleFrom(
           foregroundColor: Colors.black,
-          textStyle: const TextStyle(fontSize: 25, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black),
+          textStyle: const TextStyle(fontSize: 28, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black),
         ),
         child: Text(text));
   }

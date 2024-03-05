@@ -5,6 +5,7 @@ import 'package:test3/constants/cast_color_const.dart';
 class CustomDialog extends StatelessWidget {
   CustomDialog({super.key, required this.okClickCallback});
   late void Function() okClickCallback;
+  final Color cyanColor = const Color(0xff09C5CC);
 
   @override
   Widget build(BuildContext context) {
@@ -22,36 +23,36 @@ class CustomDialog extends StatelessWidget {
           children: [
             const Image(image: AssetImage('assets/sceen07_popup.png')),
             const Positioned(
-              top: 120,
-              right: 40,
+              top: 157,
+              right: 45,
               child: DefaultTextStyle(
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 12,
+                  fontSize: 18,
                   fontFamily: GuiConstants.fontFamilyNoto,
                 ),
                 child: Text('00:30:50'),
               ),
             ),
             const Positioned(
-              top: 150,
-              right: 40,
+              top: 195,
+              right: 45,
               child: DefaultTextStyle(
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 12,
+                  fontSize: 18,
                   fontFamily: GuiConstants.fontFamilyNoto,
                 ),
                 child: Text('10.76kWh'),
               ),
             ),
             const Positioned(
-              top: 175,
-              right: 40,
+              top: 227,
+              right: 45,
               child: DefaultTextStyle(
                 style: TextStyle(
                   color: Colors.blueAccent,
-                  fontSize: 15,
+                  fontSize: 23,
                   fontWeight: FontWeight.w700,
                   fontFamily: GuiConstants.fontFamilyNoto,
                 ),
@@ -59,7 +60,7 @@ class CustomDialog extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 20,
+              bottom: 30,
               left: 20,
               child: ElevatedButton(
                 onPressed: () {
@@ -68,13 +69,13 @@ class CustomDialog extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
-                  minimumSize: const Size(260, 45),
+                  minimumSize: const Size(365, 50),
                 ),
                 child: const Text(
                   "확인",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                     fontFamily: GuiConstants.fontFamilyNoto,
                   ),
                 ),
