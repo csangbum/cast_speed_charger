@@ -24,30 +24,31 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
       ),
       child: Stack(
         children: [
-          const Image(image: AssetImage('assets/sceen03-2_popup.png')),
+          const Image(image: AssetImage('assets/sceen03-2_popup.png'),
+            filterQuality: FilterQuality.high,),
           Positioned(
-            top: 133,
-            left: 35,
+            top: 116,
+            left: 40,
             child: SizedBox(
               height: 90,
               width: 330,
               child: TextField(
-                style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
+                style: const TextStyle(fontSize: 25, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
                 controller: textEditingController,
                 decoration: const InputDecoration(
-                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: Colors.grey,fontSize: 25, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700,),
                   hintText: '-없이 번호입력',
                   //labelText: '휴대폰 번호',
                 ),
               ),
             ),
           ),
-
           Positioned(
-            top: 170,
-            left: 10,
+            top: 155,
+            left: 34,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40),
+              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
                 children: [
@@ -84,7 +85,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
                     children: [
                       buildButton('00'),
                       buildButton('0'),
-                      buildButton('d'),
+                      buildButton('del'),
                     ],
                   )
                 ],
@@ -93,7 +94,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
           ),
           Positioned(
             bottom: 15,
-            left: 75,
+            left: 65,
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Row(
@@ -106,6 +107,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
                     child: const Image(
                       image: AssetImage('assets/cancel.png'),
                       width: 120,
+                      filterQuality: FilterQuality.high,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -118,6 +120,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
                     child: const Image(
                       image: AssetImage('assets/ok.png'),
                       width: 120,
+                      filterQuality: FilterQuality.high,
                     ),
                   ),
                 ],

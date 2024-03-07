@@ -21,9 +21,10 @@ class CustomDialog extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
-            const Image(image: AssetImage('assets/sceen07_popup.png')),
+            const Image(image: AssetImage('assets/sceen07_popup.png'),
+              filterQuality: FilterQuality.high,),
             const Positioned(
-              top: 157,
+              top: 150,
               right: 45,
               child: DefaultTextStyle(
                 style: TextStyle(
@@ -35,7 +36,7 @@ class CustomDialog extends StatelessWidget {
               ),
             ),
             const Positioned(
-              top: 195,
+              top: 188,
               right: 45,
               child: DefaultTextStyle(
                 style: TextStyle(
@@ -47,7 +48,7 @@ class CustomDialog extends StatelessWidget {
               ),
             ),
             const Positioned(
-              top: 227,
+              top: 220,
               right: 45,
               child: DefaultTextStyle(
                 style: TextStyle(

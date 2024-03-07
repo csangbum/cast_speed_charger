@@ -22,9 +22,10 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
       ),
       child: Stack(
         children: [
-          const Image(image: AssetImage('assets/sceen03-1_popup.png')),
+          const Image(image: AssetImage('assets/sceen03-1_popup.png'),
+            filterQuality: FilterQuality.high,),
           const Positioned(
-            top: 108,
+            top: 100,
             left: 80,
             child: DefaultTextStyle(
               style: TextStyle(
@@ -36,8 +37,8 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
             ),
           ),
           const Positioned(
-            top: 108,
-            right: 85,
+            top: 100,
+            right: 70,
             child: DefaultTextStyle(
               style: TextStyle(
                 color: Colors.black,
@@ -48,15 +49,16 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
             ),
           ),
           Positioned(
-            top: 190,
-            left: 25,
+            top: 170,
+            left: 30,
             child: SizedBox(
               height: 120,
-              width: 346,
+              width: 335,
               child: TextField(
-                style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
+                style: const TextStyle(fontSize: 25, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
                 controller: textEditingController,
                 decoration: InputDecoration(
+                  border: InputBorder.none,
                   hintText: '충전금액',
                   hintStyle: const TextStyle(color: Colors.grey),
                   suffixIcon: IconButton(
@@ -71,15 +73,15 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
               ),
             ),
           Positioned(
-            bottom: 90,
-            left: 0,
+            bottom: 80,
+            left: 34,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40),
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
                 children: [
                   Wrap(
-                    spacing: 65, // 간격 설정
+                    spacing: 60, // 간격 설정
                     children: [
                       buildButton('1'),
                       buildButton('2'),
@@ -88,7 +90,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
                   ),
                   const SizedBox(height: 20),
                   Wrap(
-                    spacing: 65, // 간격 설정
+                    spacing: 60, // 간격 설정
                     children: [
                       buildButton('4'),
                       buildButton('5'),
@@ -97,7 +99,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
                   ),
                   const SizedBox(height: 20),
                   Wrap(
-                    spacing: 65, // 간격 설정
+                    spacing: 60, // 간격 설정
                     children: [
                       buildButton('7'),
                       buildButton('8'),
@@ -106,7 +108,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
                   ),
                   const SizedBox(height: 20),
                   Wrap(
-                    spacing: 65, // 간격 설정
+                    spacing: 60, // 간격 설정
                     children: [
                       buildButton('00'),
                       buildButton('0'),
@@ -119,7 +121,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
           ),
           Positioned(
             bottom: 20,
-            left: 75,
+            left: 65,
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Row(
@@ -131,6 +133,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
                     },
                     child: const Image(
                       image: AssetImage('assets/cancel.png'),
+                      filterQuality: FilterQuality.high,
                       width: 120,
                     ),
                   ),
@@ -144,6 +147,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
                     child: const Image(
                       image: AssetImage('assets/ok.png'),
                       width: 120,
+                      filterQuality: FilterQuality.high,
                     ),
                   ),
                 ],
@@ -164,7 +168,7 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
             } else {
               phoneNumber += text;
             }
-            textEditingController.text = phoneNumber;
+            textEditingController.text = phoneNumber.isEmpty ? '':'$phoneNumber 원';
           });
         },
         style: TextButton.styleFrom(

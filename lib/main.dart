@@ -104,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const Image(
                 image: AssetImage('assets/castpro_logo.png'),
                 width: 300,
+                filterQuality: FilterQuality.high,
               ),
               // const Divider(height: 3, color: CastProColor.dividerColor,),
               Padding(
@@ -115,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: const Image(
                       image: AssetImage('assets/main_image.png'),
+                      filterQuality: FilterQuality.high,
                     ),
                   ),
               ),

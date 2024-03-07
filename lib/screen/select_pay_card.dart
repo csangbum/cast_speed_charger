@@ -54,7 +54,8 @@ class _SelectPayCardScreenState extends State<SelectPayCardScreen> {
                     // });
                   },
                   child: Image(
-                    image: const AssetImage('assets/paytype_iccard.png'),
+                    image: const AssetImage('assets/paytype_iccard_t.png'),
+                    filterQuality: FilterQuality.high,
                     width: imageSize,
                   ),
                 ),
@@ -73,8 +74,9 @@ class _SelectPayCardScreenState extends State<SelectPayCardScreen> {
                     // });
                   },
                   child: Image(
-                    image: const AssetImage('assets/paytype_usercard.png'),
+                    image: const AssetImage('assets/paytype_usercard_t.png'),
                     width: imageSize,
+                    filterQuality: FilterQuality.high,
                   ),
                 ),
               ],
