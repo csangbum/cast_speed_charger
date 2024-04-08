@@ -39,53 +39,58 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
     // }
     print('csangbum 2ch is not charging ch1 ${controller.getChargerState(1)} ch2 ${controller.getChargerState(2)}');
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: controller.getChargerState(1) == ChargerState.charging ?
           Stack(
             children: [
-              const Image(image: AssetImage('assets/left_charge_screen.png'),
-                // height: 300,
+              const Image(image: AssetImage('assets/left_charge_screen.png')),
+              const Positioned(
+                top: 188,
+                left: 45,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('4.52 kw/h'),
+                ),
               ),
               Positioned(
-                top: 80,
-                left: 115,
+                top: 65,
+                left: 90,
                 child: getTimeWidget(0,true),
               ),
               Positioned(
-                top: 113,
-                left: 115,
+                top: 94,
+                left: 90,
                 child: getTimeWidget(0,true),
               ),
               Positioned(
-                top: 148,
-                left: 115,
+                top: 124,
+                left: 90,
                 child: getTimeWidget(4000,false),
               ),
               Positioned(
-                right:30,
-                top:65,
+                right:40,
+                top:60,
                 child: CircularPercentIndicator(
-                  radius: 55.0, // 원형 진행 바의 반지름
-                  lineWidth: 18.0, // 진행 바의 두께
+                  radius: 50.0, // 원형 진행 바의 반지름
+                  lineWidth: 17.0, // 진행 바의 두께
                   percent: 0.7, // 진행 값 (0.0부터 1.0까지)
                   center:
-                  Text.rich(
+                  const Text.rich(
                     TextSpan(
                       children: [
-                        const TextSpan(
+                        TextSpan(
                           text: '충전속도',
-                          style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "진행" 텍스트의 색상을 파랑색으로 설정
+                          style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 11), // "진행" 텍스트의 색상을 파랑색으로 설정
                         ),
                         TextSpan(
-                          text: '\n  70',
-                          style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 18, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
-                        ),
-                        TextSpan(
-                          text: '%',
-                          style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
+                          text: '\n  70%',
+                          style: TextStyle(color: Colors.cyanAccent, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "70%" 텍스트의 색상을 검정색으로 설정
                         ),
                       ],
                     ),
@@ -96,34 +101,22 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                ),
               ),
               const Positioned(
-                top: 220,
-                left: 55,
+                top: 188,
+                right: 53,
                 child: DefaultTextStyle(
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontFamily: GuiConstants.fontFamilyNoto,
                   ),
-                  child: Text('4.52 kw/h'),
-                ),
-              ),
-              const Positioned(
-                top: 220,
-                right: 65,
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: GuiConstants.fontFamilyNoto,
-                  ),
-                  child: Text('2,800 원'),
+                  child: Text('2800원'),
                 ),
               ),
               Positioned(
                 bottom: 10,
-                left: 150,
+                left: 115,
                 child: SizedBox(
-                  height: 35,
+                  height: 40,
                   child:
                   InkWell(
                     onTap: (){
@@ -132,7 +125,7 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
                         builder: (BuildContext context) {
                           return CustomDialog(okClickCallback: () {
                             print('charger state');
-                            controller.setChargerState(1, ChargerState.ready);
+                            controller.setChargerState(2, ChargerState.ready);
                             if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
                               controller.setStatus(ChargingStatus.selectCable);
                             }
@@ -159,14 +152,14 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
           ),
         ),
         controller.getChargerState(1) != ChargerState.charging || controller.getChargerState(2) != ChargerState.charging? Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 40.0),
         child: Image(
         image: const AssetImage('assets/OR.png'),
         width: orWidth,
         ),
-        ):const SizedBox(height: 10,),
+        ):const SizedBox(height: 20,),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: controller.getChargerState(2) != ChargerState.charging ?
           Container(
             decoration: const BoxDecoration(
@@ -179,102 +172,98 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
             children: [
               const Image(image: AssetImage('assets/right_charge_screen.png')),
               Positioned(
-                top: 80,
-                left: 115,
+                top: 65,
+                left: 90,
                 child: getTimeWidget(0,true),
               ),
               Positioned(
-                top: 113,
-                left: 115,
+                top: 94,
+                left: 90,
                 child: getTimeWidget(0,true),
               ),
               Positioned(
-                top: 148,
-                left: 115,
-                child: getTimeWidget(4000,false),
+                top: 124,
+                left: 90,
+                child: getTimeWidget(2000,false),
               ),
               Positioned(
-                right:30,
-                top:65,
+                right:40,
+                top:60,
                 child: CircularPercentIndicator(
-                  radius: 55.0, // 원형 진행 바의 반지름
-                  lineWidth: 18.0, // 진행 바의 두께
+                  radius: 50.0, // 원형 진행 바의 반지름
+                  lineWidth: 17.0, // 진행 바의 두께
                   percent: 0.4, // 진행 값 (0.0부터 1.0까지)
                   center:
-                  Text.rich(
+                  const Text.rich(
                     TextSpan(
                       children: [
-                        const TextSpan(
+                        TextSpan(
                           text: '충전속도',
-                          style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "진행" 텍스트의 색상을 파랑색으로 설정
+                          style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 11), // "진행" 텍스트의 색상을 파랑색으로 설정
                         ),
                         TextSpan(
-                          text: '\n  40',
-                          style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 18), // "70%" 텍스트의 색상을 검정색으로 설정
-                        ),
-                        TextSpan(
-                          text: '%',
-                          style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
+                          text: '\n  40%',
+                          style: TextStyle(color: Colors.cyanAccent, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "70%" 텍스트의 색상을 검정색으로 설정
                         ),
                       ],
                     ),
                   ),
                   circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
-                  backgroundColor: const Color(0xff112f39), // 배경 색상
+                  backgroundColor: Color(0xff112f39), // 배경 색상
                   progressColor: Colors.blue, // 진행 바 색상
                 ),
               ),
               const Positioned(
-                top: 220,
-                left: 55,
+                top: 188,
+                left: 45,
                 child: DefaultTextStyle(
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 15,
                     fontFamily: GuiConstants.fontFamilyNoto,
                   ),
-                  child: Text('4.52 kw/h'),
+                  child: Text('10.76 kWh'),
                 ),
               ),
               const Positioned(
-                top: 220,
-                right: 65,
+                top: 188,
+                right: 53,
                 child: DefaultTextStyle(
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontFamily: GuiConstants.fontFamilyNoto,
                   ),
-                  child: Text('2,800 원'),
+                  child: Text('2800원'),
                 ),
               ),
               Positioned(
                 bottom: 10,
-                left: 150,
+                left: 115,
                 child: SizedBox(
                   height: 40,
                   child:
-                  InkWell(
-                    onTap: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CustomDialog(okClickCallback: () {
-                            print('charger state');
-                            controller.setChargerState(2, ChargerState.ready);
-                            if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
-                              controller.setStatus(ChargingStatus.selectCable);
-                            }
-                            setState(() {
-                              Navigator.of(context).pop(); // 다이얼로그 닫기
-                            });
-                            refreshScreen();
-                          },); // 위에서 정의한 다이얼로그 사용
-                        },
-                      );
-                    } ,
-                    child: const Image(image: AssetImage('assets/stop_btn.png')),
-                  ),
+                    InkWell(
+                      onTap: (){
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CustomDialog(okClickCallback: () {
+                              print('charger state');
+                              controller.setChargerState(2, ChargerState.ready);
+                              if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
+                                controller.setStatus(ChargingStatus.selectCable);
+                              }
+                              setState(() {
+                                Navigator.of(context).pop(); // 다이얼로그 닫기
+                              });
+                              refreshScreen();
+                            },); // 위에서 정의한 다이얼로그 사용
+                          },
+                        );
+                      } ,
+                      child: Image(image: AssetImage('assets/stop_btn.png')),
+                    ),
                 ),
               ),
             ],
@@ -307,7 +296,6 @@ class _ChargedTimeUp extends StatefulWidget {
 
 class _ChargedTimeUpState extends State<_ChargedTimeUp> {
   late StopWatchTimer stopWatchTimer;
-  final Color cyanColor = const Color(0xff09C5CC);
 
   @override
   void initState() {
@@ -332,7 +320,7 @@ class _ChargedTimeUpState extends State<_ChargedTimeUp> {
         return Text(
           displayTime,
           textAlign: TextAlign.right,
-          style: TextStyle(color: cyanColor, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700),
+          style: const TextStyle(color: Colors.cyanAccent, fontSize: 12, fontFamily: GuiConstants.fontFamilyNoto),
         );
       },
     );
@@ -360,7 +348,6 @@ class _ChargedTimeDown extends StatefulWidget {
 
 class _ChargedTimeDownState extends State<_ChargedTimeDown> {
   late StopWatchTimer stopWatchTimer;
-  final Color cyanColor = const Color(0xff09C5CC);
 
   @override
   void initState() {
@@ -394,7 +381,7 @@ class _ChargedTimeDownState extends State<_ChargedTimeDown> {
         return Text(
           displayTime,
           textAlign: TextAlign.right,
-          style: TextStyle(color: cyanColor, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700),
+          style: const TextStyle(color: Colors.cyanAccent, fontSize: 12, fontFamily: GuiConstants.fontFamilyNoto),
         );
       },
     );
