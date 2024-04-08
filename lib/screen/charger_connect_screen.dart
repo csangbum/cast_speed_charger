@@ -46,8 +46,7 @@ class _ChargerConnectScreenState extends State<ChargerConnectScreen> {
       child: const Center(
         child: Image(
           image: AssetImage('assets/sceen05.png'),
-          fit: BoxFit.contain,
-          filterQuality: FilterQuality.high,
+          fit: BoxFit.contain
         ),
       ),
     );

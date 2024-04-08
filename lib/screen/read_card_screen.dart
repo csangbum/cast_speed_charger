@@ -26,7 +26,6 @@ class _ReadCardScreenState extends State<ReadCardScreen> {
       child: const Center(
         child: Image(
             image: AssetImage('assets/sceen04.png'),
-            filterQuality: FilterQuality.high,
             fit: BoxFit.fitWidth
         ),
       ),

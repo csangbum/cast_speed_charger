@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:test3/screen/main_screen.dart';
+import 'package:test3/utils/reboot_plugin.dart';
 import 'package:test3/utils/utils.dart';
 import 'package:video_player/video_player.dart';
 
@@ -76,12 +77,20 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double feeHeight = Utils.getVerticalSize(widget.chargerFeeHeightRatio, context);
     double bottomHeight = Utils.getVerticalSize(widget.bottomHeightRatio, context);
+    double sizeW = MediaQuery.of(context).size.width;
+    double sizeH = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: CastProColor.mainBackgroundColor,
       body: InkWell(
         highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
         splashColor: Colors.transparent, //클릭시 원형 이펙트
-        onTap: () {
+        onTap: () async {
+          try {
+            await RebootPlugin.reboot();
+            print('Device rebooting...');
+          } catch (e) {
+            print('Failed to reboot device: $e');
+          }
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return const MainScreen();
           }));
@@ -101,6 +110,8 @@ class _MyHomePageState extends State<MyHomePage> {
               },),
               // const Divider(height: 3, color: CastProColor.dividerColor,),
               const SizedBox(height: 80,),
+              Text('w : $sizeW and H: $sizeH', style: TextStyle(color: Colors.white),),
+
               const Image(
                 image: AssetImage('assets/castpro_logo.png'),
                 width: 300,

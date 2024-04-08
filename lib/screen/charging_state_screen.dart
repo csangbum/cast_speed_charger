@@ -41,244 +41,244 @@ class _ChargingStateScreenState extends State<ChargingStateScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        controller.getChargerState(1) == ChargerState.charging ?
-        Stack(
-          children: [
-            const Image(image: AssetImage('assets/left_charge_screen.png'),
-                filterQuality: FilterQuality.high,),
-            Positioned(
-              top: 80,
-              left: 115,
-              child: getTimeWidget(0,true),
-            ),
-            Positioned(
-              top: 113,
-              left: 115,
-              child: getTimeWidget(0,true),
-            ),
-            Positioned(
-              top: 148,
-              left: 115,
-              child: getTimeWidget(4000,false),
-            ),
-            Positioned(
-              right:30,
-              top:65,
-              child: CircularPercentIndicator(
-                radius: 55.0, // 원형 진행 바의 반지름
-                lineWidth: 18.0, // 진행 바의 두께
-                percent: 0.7, // 진행 값 (0.0부터 1.0까지)
-                center:
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: '충전속도',
-                        style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "진행" 텍스트의 색상을 파랑색으로 설정
-                      ),
-                      TextSpan(
-                        text: '\n  70',
-                        style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 18, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
-                      ),
-                      TextSpan(
-                        text: '%',
-                        style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
-                      ),
-                    ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: controller.getChargerState(1) == ChargerState.charging ?
+          Stack(
+            children: [
+              const Image(image: AssetImage('assets/left_charge_screen.png'),
+                // height: 300,
+              ),
+              Positioned(
+                top: 80,
+                left: 115,
+                child: getTimeWidget(0,true),
+              ),
+              Positioned(
+                top: 113,
+                left: 115,
+                child: getTimeWidget(0,true),
+              ),
+              Positioned(
+                top: 148,
+                left: 115,
+                child: getTimeWidget(4000,false),
+              ),
+              Positioned(
+                right:30,
+                top:65,
+                child: CircularPercentIndicator(
+                  radius: 55.0, // 원형 진행 바의 반지름
+                  lineWidth: 18.0, // 진행 바의 두께
+                  percent: 0.7, // 진행 값 (0.0부터 1.0까지)
+                  center:
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: '충전속도',
+                          style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "진행" 텍스트의 색상을 파랑색으로 설정
+                        ),
+                        TextSpan(
+                          text: '\n  70',
+                          style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 18, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
+                        ),
+                        TextSpan(
+                          text: '%',
+                          style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
+                        ),
+                      ],
+                    ),
+                  ),
+                  circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
+                  backgroundColor: const Color(0xff112f39), // 배경 색상
+                  progressColor: Colors.blue, // 진행 바 색상
+               ),
+              ),
+              const Positioned(
+                top: 220,
+                left: 55,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('4.52 kw/h'),
+                ),
+              ),
+              const Positioned(
+                top: 220,
+                right: 65,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('2,800 원'),
+                ),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 150,
+                child: SizedBox(
+                  height: 35,
+                  child:
+                  InkWell(
+                    onTap: (){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomDialog(okClickCallback: () {
+                            print('charger state');
+                            controller.setChargerState(1, ChargerState.ready);
+                            if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
+                              controller.setStatus(ChargingStatus.selectCable);
+                            }
+                            setState(() {
+                              Navigator.of(context).pop(); // 다이얼로그 닫기
+                            });
+                            refreshScreen();
+                          },); // 위에서 정의한 다이얼로그 사용
+                        },
+                      );
+                    } ,
+                    child: const Image(image: AssetImage('assets/stop_btn.png')),
                   ),
                 ),
-                circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
-                backgroundColor: const Color(0xff112f39), // 배경 색상
-                progressColor: Colors.blue, // 진행 바 색상
-             ),
-            ),
-            const Positioned(
-              top: 224,
-              left: 55,
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: GuiConstants.fontFamilyNoto,
-                ),
-                child: Text('4.52 kw/h'),
               ),
+            ],
+          )
+          :Container(
+            decoration: const BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
-            const Positioned(
-              top: 224,
-              right: 60,
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: GuiConstants.fontFamilyNoto,
-                ),
-                child: Text('2,800 원'),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 150,
-              child: SizedBox(
-                height: 35,
-                child:
-                InkWell(
-                  onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomDialog(okClickCallback: () {
-                          print('charger state');
-                          controller.setChargerState(1, ChargerState.ready);
-                          if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
-                            controller.setStatus(ChargingStatus.selectCable);
-                          }
-                          setState(() {
-                            Navigator.of(context).pop(); // 다이얼로그 닫기
-                          });
-                          refreshScreen();
-                        },); // 위에서 정의한 다이얼로그 사용
-                      },
-                    );
-                  } ,
-                  child: const Image(image: AssetImage('assets/stop_btn.png'),
-                    filterQuality: FilterQuality.high,),
-                ),
-              ),
-            ),
-          ],
-        )
-        :Container(
-          decoration: const BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+            child: const Image(image: AssetImage('assets/c_type.png')),
           ),
-          child: const Image(image: AssetImage('assets/c_type.png'),
-            filterQuality: FilterQuality.high,),
         ),
-        controller.getChargerState(1) != ChargerState.charging || controller.getChargerState(2) != ChargerState.charging?
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.0),
-          child: Image(
-          image: AssetImage('assets/OR.png'),
-          // width: orWidth,
-            filterQuality: FilterQuality.high,
-          ),)
-          :const SizedBox(height: 10,),
-        controller.getChargerState(2) != ChargerState.charging ?
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-          ),
-          child: const Image(image: AssetImage('assets/b_type.png'),
-            filterQuality: FilterQuality.high,),
-        ):
-        Stack(
-          children: [
-            const Image(image: AssetImage('assets/right_charge_screen.png'),
-              filterQuality: FilterQuality.high,),
-            Positioned(
-              top: 80,
-              left: 115,
-              child: getTimeWidget(0,true),
+        controller.getChargerState(1) != ChargerState.charging || controller.getChargerState(2) != ChargerState.charging? Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: Image(
+        image: const AssetImage('assets/OR.png'),
+        width: orWidth,
+        ),
+        ):const SizedBox(height: 10,),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: controller.getChargerState(2) != ChargerState.charging ?
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
-            Positioned(
-              top: 113,
-              left: 115,
-              child: getTimeWidget(0,true),
-            ),
-            Positioned(
-              top: 148,
-              left: 115,
-              child: getTimeWidget(4000,false),
-            ),
-            Positioned(
-              right:30,
-              top:65,
-              child: CircularPercentIndicator(
-                radius: 55.0, // 원형 진행 바의 반지름
-                lineWidth: 18.0, // 진행 바의 두께
-                percent: 0.4, // 진행 값 (0.0부터 1.0까지)
-                center:
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: '충전속도',
-                        style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "진행" 텍스트의 색상을 파랑색으로 설정
-                      ),
-                      TextSpan(
-                        text: '\n  40',
-                        style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 18), // "70%" 텍스트의 색상을 검정색으로 설정
-                      ),
-                      TextSpan(
-                        text: '%',
-                        style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
-                      ),
-                    ],
+            child: const Image(image: AssetImage('assets/b_type.png')),
+          ):
+          Stack(
+            children: [
+              const Image(image: AssetImage('assets/right_charge_screen.png')),
+              Positioned(
+                top: 80,
+                left: 115,
+                child: getTimeWidget(0,true),
+              ),
+              Positioned(
+                top: 113,
+                left: 115,
+                child: getTimeWidget(0,true),
+              ),
+              Positioned(
+                top: 148,
+                left: 115,
+                child: getTimeWidget(4000,false),
+              ),
+              Positioned(
+                right:30,
+                top:65,
+                child: CircularPercentIndicator(
+                  radius: 55.0, // 원형 진행 바의 반지름
+                  lineWidth: 18.0, // 진행 바의 두께
+                  percent: 0.4, // 진행 값 (0.0부터 1.0까지)
+                  center:
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: '충전속도',
+                          style: TextStyle(color: Colors.white, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13), // "진행" 텍스트의 색상을 파랑색으로 설정
+                        ),
+                        TextSpan(
+                          text: '\n  40',
+                          style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 18), // "70%" 텍스트의 색상을 검정색으로 설정
+                        ),
+                        TextSpan(
+                          text: '%',
+                          style: TextStyle(color: cyanColor, fontFamily: GuiConstants.fontFamilyNoto, fontSize: 13, fontWeight: FontWeight.bold), // "70%" 텍스트의 색상을 검정색으로 설정
+                        ),
+                      ],
+                    ),
+                  ),
+                  circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
+                  backgroundColor: const Color(0xff112f39), // 배경 색상
+                  progressColor: Colors.blue, // 진행 바 색상
+                ),
+              ),
+              const Positioned(
+                top: 220,
+                left: 55,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('4.52 kw/h'),
+                ),
+              ),
+              const Positioned(
+                top: 220,
+                right: 65,
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: GuiConstants.fontFamilyNoto,
+                  ),
+                  child: Text('2,800 원'),
+                ),
+              ),
+              Positioned(
+                bottom: 10,
+                left: 150,
+                child: SizedBox(
+                  height: 40,
+                  child:
+                  InkWell(
+                    onTap: (){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomDialog(okClickCallback: () {
+                            print('charger state');
+                            controller.setChargerState(2, ChargerState.ready);
+                            if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
+                              controller.setStatus(ChargingStatus.selectCable);
+                            }
+                            setState(() {
+                              Navigator.of(context).pop(); // 다이얼로그 닫기
+                            });
+                            refreshScreen();
+                          },); // 위에서 정의한 다이얼로그 사용
+                        },
+                      );
+                    } ,
+                    child: const Image(image: AssetImage('assets/stop_btn.png')),
                   ),
                 ),
-                circularStrokeCap: CircularStrokeCap.round, // 진행 바의 모양 설정
-                backgroundColor: const Color(0xff112f39), // 배경 색상
-                progressColor: Colors.blue, // 진행 바 색상
               ),
-            ),
-            const Positioned(
-              top: 224,
-              left: 55,
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: GuiConstants.fontFamilyNoto,
-                ),
-                child: Text('4.52 kw/h'),
-              ),
-            ),
-            const Positioned(
-              top: 224,
-              right: 60,
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: GuiConstants.fontFamilyNoto,
-                ),
-                child: Text('2,800 원'),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 150,
-              child: SizedBox(
-                height: 35,
-                child:
-                InkWell(
-                  onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomDialog(okClickCallback: () {
-                          print('charger state');
-                          controller.setChargerState(2, ChargerState.ready);
-                          if (controller.getChargerState(1) != ChargerState.charging && controller.getChargerState(2) != ChargerState.charging) {
-                            controller.setStatus(ChargingStatus.selectCable);
-                          }
-                          setState(() {
-                            Navigator.of(context).pop(); // 다이얼로그 닫기
-                          });
-                          refreshScreen();
-                        },); // 위에서 정의한 다이얼로그 사용
-                      },
-                    );
-                  } ,
-                  child: const Image(image: AssetImage('assets/stop_btn.png'),
-                    filterQuality: FilterQuality.high,),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
@@ -332,7 +332,7 @@ class _ChargedTimeUpState extends State<_ChargedTimeUp> {
         return Text(
           displayTime,
           textAlign: TextAlign.right,
-          style: TextStyle(color: cyanColor, fontSize: 14, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700),
+          style: TextStyle(color: cyanColor, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700),
         );
       },
     );
@@ -394,7 +394,7 @@ class _ChargedTimeDownState extends State<_ChargedTimeDown> {
         return Text(
           displayTime,
           textAlign: TextAlign.right,
-          style: TextStyle(color: cyanColor, fontSize: 14, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700),
+          style: TextStyle(color: cyanColor, fontSize: 13, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700),
         );
       },
     );

@@ -37,8 +37,8 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
               child: Text("충전을 시작하시려면\r\n충전 방식을 선택해 주세요.")),
           const SizedBox(height: 25,),
           InkWell(
-            // highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
-            // splashColor: Colors.transparent, //클릭시 원형 이펙트
+            highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
+            splashColor: Colors.transparent, //클릭시 원형 이펙트
             onTap: () {
               controller.setChargerState(1, ChargerState.selected);
               controller.setStatus(ChargingStatus.selectPayment);
@@ -55,20 +55,19 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
             },
             child: const Image(
               image: AssetImage('assets/c_type.png'),
-              // width: 920,
+              width: 920,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 18.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 18.0),
             child: Image(
-              image: AssetImage('assets/OR.png'),
-              // width: orWidth,
-              filterQuality: FilterQuality.high,
+              image: const AssetImage('assets/OR.png'),
+              width: orWidth,
             ),
           ),
           InkWell(
-            // highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
-            // splashColor: Colors.transparent, //클릭시 원형 이펙트
+            highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
+            splashColor: Colors.transparent, //클릭시 원형 이펙트
             onTap: () {
               controller.setStatus(ChargingStatus.selectPayment);
               controller.setChargerState(2, ChargerState.selected);
@@ -79,8 +78,7 @@ class _SelectChargerCableState extends State<SelectChargerCable> {
             },
             child: const Image(
               image: AssetImage('assets/b_type.png'),
-              filterQuality: FilterQuality.high,
-              // width: 920,
+              width: 920,
             ),
           ),
         ],
