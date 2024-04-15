@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test3/constants/cast_color_const.dart';
 
+import '../../utils/utils.dart';
+
 
 class CustomDialog extends StatelessWidget {
   CustomDialog({super.key, required this.okClickCallback});
@@ -17,41 +19,40 @@ class CustomDialog extends StatelessWidget {
           color: Colors.white, // 흰색 배경을 사용
           borderRadius: BorderRadius.circular(8.0), // 테두리를 둥글게 만듦
         ),
-        width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
             const Image(image: AssetImage('assets/sceen07_popup.png')),
-            const Positioned(
-              top: 120,
-              right: 40,
-              child: DefaultTextStyle(
+            Positioned(
+              top: Utils.getDirectVerticalSize(140, context),
+              right: Utils.getDirectHorizonSize(10, context),
+              child: const DefaultTextStyle(
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 12,
+                  fontSize: GuiConstants.fontMediumSize,
                   fontFamily: GuiConstants.fontFamilyNoto,
                 ),
                 child: Text('00:30:50'),
               ),
             ),
-            const Positioned(
-              top: 150,
-              right: 40,
-              child: DefaultTextStyle(
+            Positioned(
+              top: Utils.getDirectVerticalSize(175, context),
+              right: Utils.getDirectHorizonSize(10, context),
+              child: const DefaultTextStyle(
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 12,
+                  fontSize: GuiConstants.fontMediumSize,
                   fontFamily: GuiConstants.fontFamilyNoto,
                 ),
                 child: Text('10.76kWh'),
               ),
             ),
-            const Positioned(
-              top: 175,
-              right: 40,
-              child: DefaultTextStyle(
+            Positioned(
+              top: Utils.getDirectVerticalSize(210, context),
+              right: Utils.getDirectHorizonSize(10, context),
+              child: const DefaultTextStyle(
                 style: TextStyle(
                   color: Colors.blueAccent,
-                  fontSize: 15,
+                  fontSize: GuiConstants.fontMediumSize,
                   fontWeight: FontWeight.w700,
                   fontFamily: GuiConstants.fontFamilyNoto,
                 ),
@@ -59,8 +60,8 @@ class CustomDialog extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 20,
-              left: 20,
+              bottom: Utils.getDirectVerticalSize(20, context),
+              left: Utils.getDirectVerticalSize(20, context),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // 다이얼로그 닫기
@@ -68,13 +69,13 @@ class CustomDialog extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff0066ff), //Colors.blueAccent, // 파란색 버튼
-                  minimumSize: const Size(260, 45),
+                  minimumSize: Size(Utils.getDirectVerticalSize(320, context), Utils.getDirectVerticalSize(50, context)),
                 ),
                 child: const Text(
                   "확인",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: GuiConstants.fontLargeSize,
                     fontFamily: GuiConstants.fontFamilyNoto,
                   ),
                 ),

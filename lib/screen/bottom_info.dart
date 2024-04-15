@@ -10,7 +10,7 @@ class BottomInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     double horizonPadding = Utils.getHorizonSize(horizonPaddingRadio, context);
     return const SizedBox(
-      height: 50,
+      // height: 50,
       child:
         Image(image:AssetImage('assets/footer.png')),
       // Padding(

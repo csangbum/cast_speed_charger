@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test3/constants/cast_color_const.dart';
 
+import '../../utils/utils.dart';
+
 class InputPriceDialog extends StatefulWidget {
   InputPriceDialog({super.key, required this.okClickCallback});
   late void Function() okClickCallback;
@@ -11,6 +13,9 @@ class InputPriceDialog extends StatefulWidget {
 
 class _InputPriceDialogState extends State<InputPriceDialog> {
   String phoneNumber = '';
+  final double dialogWidth = 313;
+  final double dialogHeight = 508;
+
   TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -23,44 +28,45 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
       child: Stack(
         children: [
           const Image(image: AssetImage('assets/sceen03-1_popup.png')),
-          const Positioned(
-            top: 80,
-            left: 65,
-            child: DefaultTextStyle(
+          Positioned(
+            top: Utils.getDirectVerticalSize(96.5, context),
+            left: Utils.getDirectVerticalSize(75, context),
+            child: const DefaultTextStyle(
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: GuiConstants.fontMediumSize,
                 fontFamily: GuiConstants.fontFamilyNoto,
               ),
               child: Text('320 원'),
             ),
           ),
-          const Positioned(
-            top: 80,
-            right: 45,
-            child: DefaultTextStyle(
+          Positioned(
+            top: Utils.getDirectVerticalSize(96.5, context),
+            right: Utils.getDirectVerticalSize(75, context),
+            child: const DefaultTextStyle(
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: GuiConstants.fontMediumSize,
                 fontFamily: GuiConstants.fontFamilyNoto,
               ),
               child: Text('4.62 kw/h'),
             ),
           ),
           Positioned(
-            top: 131,
-            left: 25,
+            top: Utils.getDirectVerticalSize(178, context), //Utils.getDire,
+            left: Utils.getDirectVerticalSize(25, context),
             child: SizedBox(
-              height: 120,
-              width: 255,
+              height: Utils.getDirectVerticalSize(120, context),
+              width: Utils.getDirectVerticalSize(310, context),
               child: TextField(
-                style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
+                style: const TextStyle(fontSize: GuiConstants.fontLargeSize, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
                 controller: textEditingController,
                 decoration: InputDecoration(
                   hintText: '충전금액',
                   hintStyle: const TextStyle(color: Colors.grey),
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.cancel_outlined, color: Colors.grey,),
+                    icon: Icon(Icons.cancel_outlined, color: Colors.grey, size: Utils.getDirectVerticalSize(25, context)),
+
                     onPressed: (){
                       setState(() {
                         textEditingController.clear();
@@ -71,87 +77,87 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
               ),
             ),
           Positioned(
-            top: 180,
-            left: 5,
+            top: Utils.getDirectVerticalSize(210, context),
+            left: Utils.getDirectVerticalSize(22, context),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
-                children: [
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 30, // 간격 설정
-                    children: [
-                      buildButton('1'),
-                      buildButton('2'),
-                      buildButton('3'),
-                    ],
-                  ),
-                  Wrap(
-                    spacing: 30, // 간격 설정
-                    children: [
-                      buildButton('4'),
-                      buildButton('5'),
-                      buildButton('6'),
-                    ],
-                  ),
-                  Wrap(
-                    spacing: 30, // 간격 설정
-                    children: [
-                      buildButton('7'),
-                      buildButton('8'),
-                      buildButton('9'),
-                    ],
-                  ),
-                  Wrap(
-                    spacing: 30, // 간격 설정
-                    children: [
-                      buildButton('00'),
-                      buildButton('0'),
-                      buildButton('del'),
-                    ],
-                  )
-                ],
+              padding: EdgeInsets.symmetric(vertical: Utils.getDirectVerticalSize(10, context), horizontal: Utils.getDirectVerticalSize(20, context)),
+              child: SizedBox(
+                height: Utils.getDirectVerticalSize(260, context),
+                width: Utils.getDirectVerticalSize(260, context),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 중앙 정렬
+                  children: [
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: Utils.getDirectVerticalSize(80, context), // 간격 설정
+                      children: [
+                        buildButton('1'),
+                        buildButton('2'),
+                        buildButton('3'),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: Utils.getDirectVerticalSize(80, context), // 간격 설정
+                      children: [
+                        buildButton('4'),
+                        buildButton('5'),
+                        buildButton('6'),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: Utils.getDirectVerticalSize(80, context), // 간격 설정
+                      children: [
+                        buildButton('7'),
+                        buildButton('8'),
+                        buildButton('9'),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: Utils.getDirectVerticalSize(70, context), // 간격 설정
+                      children: [
+                        buildButton('00'),
+                        buildButton('0'),
+                        buildButton('del'),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
           Positioned(
-            bottom: 20,
-            left: 25,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop(); // 다이얼로그 닫기
-                    },
-                    child: const Image(
-                      image: AssetImage('assets/cancel.png'),
-                      width: 120,
-                    ),
+            bottom: Utils.getDirectVerticalSize(20, context),
+            left: Utils.getDirectVerticalSize((dialogWidth - (115 *2))/2, context),// (312 - (115 *2))/2
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop(); // 다이얼로그 닫기
+                  },
+                  child: const Image(
+                    image: AssetImage('assets/cancel.png'),
                   ),
-                  const SizedBox(width: 16),
-                  InkWell(
-                    onTap: () {
-                      // 확인 버튼 눌렸을 때 동작 추가
-                      Navigator.of(context).pop(); // 다이얼로그 닫기
-                      widget.okClickCallback();
-                    },
-                    child: const Image(
-                      image: AssetImage('assets/ok.png'),
-                      width: 120,
-                    ),
+                ),
+                SizedBox(width: Utils.getDirectVerticalSize(16, context)),
+                InkWell(
+                  onTap: () {
+                    // 확인 버튼 눌렸을 때 동작 추가
+                    Navigator.of(context).pop(); // 다이얼로그 닫기
+                    widget.okClickCallback();
+                  },
+                  child: const Image(
+                    image: AssetImage('assets/ok.png'),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
       ),
     );
   }
+
   Widget buildButton(String text) {
     return TextButton(
         onPressed: () {
@@ -165,11 +171,10 @@ class _InputPriceDialogState extends State<InputPriceDialog> {
             textEditingController.text = phoneNumber;
           });
         },
-        style: TextButton.styleFrom(
-          foregroundColor: Colors.black,
-          textStyle: const TextStyle(fontSize: 25, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black),
-        ),
-        child: Text(text));
+        style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all<Size>(
+              const Size(50, 50),)), // 원하는 너비와 높이로 설정
+        child: Text(text, style: const TextStyle(fontSize: GuiConstants.fontLargeSize, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black, ),));
   }
 }
 

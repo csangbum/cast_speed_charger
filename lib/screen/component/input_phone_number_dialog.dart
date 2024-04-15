@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:test3/constants/cast_color_const.dart';
 
+import '../../utils/utils.dart';
+
 class InputPhoneNumberDialog extends StatefulWidget {
   InputPhoneNumberDialog({super.key, required this.okClickCallback});
   late void Function() okClickCallback;
@@ -13,7 +15,6 @@ class InputPhoneNumberDialog extends StatefulWidget {
 class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
   String phoneNumber = '';
   TextEditingController textEditingController = TextEditingController();
-  final double spaceValue = 45;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +27,13 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
         children: [
           const Image(image: AssetImage('assets/sceen03-2_popup.png')),
           Positioned(
-            top: 86,
-            left: 25,
+            top: Utils.getDirectVerticalSize(125, context),
+            left: Utils.getDirectVerticalSize(33, context),
             child: SizedBox(
-              height: 90,
-              width: 255,
+              height: Utils.getDirectVerticalSize(90, context),
+              width: Utils.getDirectVerticalSize(296, context),
               child: TextField(
-                style: const TextStyle(fontSize: 20, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
+                style: const TextStyle(fontSize: GuiConstants.fontLargeSize, fontFamily: GuiConstants.fontFamilyNoto, fontWeight: FontWeight.w700, color: Colors.black),
                 controller: textEditingController,
                 decoration: const InputDecoration(
                   hintStyle: TextStyle(color: Colors.grey),
@@ -42,83 +43,82 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
               ),
             ),
           ),
-
           Positioned(
-            top: 120,
-            left: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
-                children: [
-                  const SizedBox(height: 20),
-                  Wrap(
-                    spacing: 40, // 간격 설정
-                    children: [
-                      buildButton('1'),
-                      buildButton('2'),
-                      buildButton('3'),
-                    ],
-                  ),
-                  Wrap(
-                    spacing: 40, // 간격 설정
-                    children: [
-                      buildButton('4'),
-                      buildButton('5'),
-                      buildButton('6'),
-                    ],
-                  ),
-                  Wrap(
-                    spacing: 40, // 간격 설정
-                    children: [
-                      buildButton('7'),
-                      buildButton('8'),
-                      buildButton('9'),
-                    ],
-                  ),
-                  Wrap(
-                    spacing: 40, // 간격 설정
-                    children: [
-                      buildButton('00'),
-                      buildButton('0'),
-                      buildButton('del'),
-                    ],
-                  )
-                ],
+            top: Utils.getDirectVerticalSize(180, context),
+            left: Utils.getDirectVerticalSize((312-215)/2, context),
+            child: SizedBox(
+              height: Utils.getDirectVerticalSize(260, context),
+              width: Utils.getDirectVerticalSize(260, context),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: Utils.getDirectVerticalSize(15, context), horizontal: Utils.getDirectVerticalSize(10, context),),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 중앙 정렬
+                  children: [
+                    Wrap(
+                      spacing: Utils.getDirectVerticalSize(80, context), // 간격 설정
+                      children: [
+                        buildButton('1'),
+                        buildButton('2'),
+                        buildButton('3'),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: Utils.getDirectVerticalSize(80, context), // 간격 설정
+                      children: [
+                        buildButton('4'),
+                        buildButton('5'),
+                        buildButton('6'),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: Utils.getDirectVerticalSize(80, context), // 간격 설정
+                      children: [
+                        buildButton('7'),
+                        buildButton('8'),
+                        buildButton('9'),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: Utils.getDirectVerticalSize(70, context), // 간격 설정
+                      children: [
+                        buildButton('00'),
+                        buildButton('0'),
+                        buildButton('del'),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
           Positioned(
-            bottom: 15,
-            left: 25,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop(); // 다이얼로그 닫기
-                    },
-                    child: const Image(
-                      image: AssetImage('assets/cancel.png'),
-                      width: 120,
-                    ),
+            bottom: Utils.getDirectVerticalSize(20, context),
+            left: Utils.getDirectVerticalSize((312 - (115 *2))/2, context),// (312 - (115 *2))/2
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center, // 중앙 정렬
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop(); // 다이얼로그 닫기
+                  },
+                  child: const Image(
+                    image: AssetImage('assets/cancel.png'),
+                    // width: 120,
                   ),
-                  const SizedBox(width: 16),
-                  InkWell(
-                    onTap: () {
-                      // 확인 버튼 눌렸을 때 동작 추가
-                      Navigator.of(context).pop(); // 다이얼로그 닫기
-                      widget.okClickCallback();
-                    },
-                    child: const Image(
-                      image: AssetImage('assets/ok.png'),
-                      width: 120,
-                    ),
+                ),
+                SizedBox(width: Utils.getDirectVerticalSize(16, context)),
+                InkWell(
+                  onTap: () {
+                    // 확인 버튼 눌렸을 때 동작 추가
+                    Navigator.of(context).pop(); // 다이얼로그 닫기
+                    widget.okClickCallback();
+                  },
+                  child: const Image(
+                    image: AssetImage('assets/ok.png'),
+                    // width: 120,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -141,7 +141,7 @@ class _InputPhoneNumberDialogState extends State<InputPhoneNumberDialog> {
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all<Size>(
           const Size(50, 50),)), // 원하는 너비와 높이로 설정
-        child: Text(text, style: const TextStyle(fontSize: 26, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black, ),));
+        child: Text(text, style: const TextStyle(fontSize: GuiConstants.fontLargeSize, fontFamily: GuiConstants.fontFamilyNoto, color: Colors.black, ),));
   }
 }
 

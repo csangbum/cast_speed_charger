@@ -10,4 +10,7 @@ class CastProColor {
 
 class GuiConstants {
   static const String fontFamilyNoto = 'NotoSansKorean';
+  static const double fontLargeSize = 40;
+  static const double fontMediumSize = 25;
+  static const double fontSmallSize = 20;
 }

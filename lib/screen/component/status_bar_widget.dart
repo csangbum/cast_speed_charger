@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../charger_info.dart';
+import '../../utils/utils.dart';
 
 class StatusBarWidget extends StatefulWidget {
   StatusBarWidget({super.key, required this.screenCallback});
@@ -15,27 +16,30 @@ class StatusBarWidget extends StatefulWidget {
 class _StatusBarWidgetState extends State<StatusBarWidget> {
   ChargerInfo chargerInfo = ChargerInfo.getInstance();
   Timer? _timer;
+  final double iconSize = (22) / 392*100;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Icon(Icons.wifi, color: Colors.white,),
-          GestureDetector(
-            onTapDown: (_) {
-              _timer = Timer(const Duration(seconds: 3), () {
-                _showDemoDialog(context);
-              });
-            },
-            onTapUp: (_) {
-              _timer?.cancel();
-            },
-            child: const Icon(Icons.settings_applications, color: Colors.white,),
-          ),
-        ],),
+    return SizedBox(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.wifi, color: Colors.white, size: Utils.getHorizonSize(iconSize, context),),
+            GestureDetector(
+              onTapDown: (_) {
+                _timer = Timer(const Duration(seconds: 3), () {
+                  _showDemoDialog(context);
+                });
+              },
+              onTapUp: (_) {
+                _timer?.cancel();
+              },
+              child: Icon(Icons.settings_applications, color: Colors.white,size: Utils.getHorizonSize(iconSize, context),),
+            ),
+          ],),
+      ),
     );
   }
 

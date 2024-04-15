@@ -101,4 +101,18 @@ class Utils {
     // Utils.logMsg('csangbum getHorizonSize ${percent*height /100}');
     return percent*height / 100;
   }
+
+  static double getDirectHorizonSize(double percent, BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    // Utils.logMsg('csangbum getHorizonSize ${percent * width /100} width $width');
+    double orSizeRatio = percent/392*100;
+    return percent*width / 100;
+  }
+
+  static double getDirectVerticalSize(double percent, BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double orSizeRatio = percent/695*100;
+    // Utils.logMsg('csangbum getHorizonSize ${percent*height /100}');
+    return orSizeRatio*height / 100;
+  }
 }

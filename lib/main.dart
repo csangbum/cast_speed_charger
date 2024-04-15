@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:test3/screen/main_screen.dart';
@@ -41,8 +43,9 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
-  final chargerFeeHeightRatio = 350 / 1920 *100;
-  final bottomHeightRatio = 260 / 1920 *100;
+  final chargerFeeHeightRatio = (580-454) / 695 *100;
+  final bottomHeightRatio = (695-580)/ 695 *100;
+  final priceHorizonPadding = (57) / 392*100;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -77,20 +80,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double feeHeight = Utils.getVerticalSize(widget.chargerFeeHeightRatio, context);
     double bottomHeight = Utils.getVerticalSize(widget.bottomHeightRatio, context);
+    double priceHorizonPadding = Utils.getHorizonSize(widget.priceHorizonPadding, context);
     double sizeW = MediaQuery.of(context).size.width;
     double sizeH = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: CastProColor.mainBackgroundColor,
       body: InkWell(
         highlightColor: Colors.transparent, //모서리로 퍼져나가는 이펙트
         splashColor: Colors.transparent, //클릭시 원형 이펙트
-        onTap: () async {
-          try {
-            await RebootPlugin.reboot();
-            print('Device rebooting...');
-          } catch (e) {
-            print('Failed to reboot device: $e');
-          }
+        onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return const MainScreen();
           }));
@@ -111,10 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
               // const Divider(height: 3, color: CastProColor.dividerColor,),
               const SizedBox(height: 80,),
               Text('w : $sizeW and H: $sizeH', style: TextStyle(color: Colors.white),),
-
               const Image(
                 image: AssetImage('assets/castpro_logo.png'),
-                width: 300,
+                // width: 300,
                 filterQuality: FilterQuality.high,
               ),
               // const Divider(height: 3, color: CastProColor.dividerColor,),
@@ -136,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(bottom: 50.0),
                 child: Text(
                   '화면을 터치해주세요!',
-                  style: TextStyle(color: Colors.white, fontSize: 28),
+                  style: TextStyle(color: Colors.white, fontSize: GuiConstants.fontLargeSize),
                   // style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white70),
                 ),
               ),
@@ -147,37 +145,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: const BoxDecoration(
                   color: Color(0xff262626),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 15),
-                  child: Column(
-                    children: [
-                       Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('환경부/로밍 회원', style: TextStyle(color: Colors.white, fontSize: 23, fontFamily: GuiConstants.fontFamilyNoto),),
-                                Text('324.4원', style: TextStyle(color: Colors.white, fontSize: 23, fontFamily: GuiConstants.fontFamilyNoto),),
-                              ],
-                            ),
-                          ),
-                          Divider(color: CastProColor.dividerColor,height: 5,),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('신용카드', style: TextStyle(color: Colors.white, fontSize: 23, fontFamily: GuiConstants.fontFamilyNoto),),
-                                Text('200.0원',style: TextStyle(color: Colors.white, fontSize: 23, fontFamily: GuiConstants.fontFamilyNoto),),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: priceHorizonPadding, vertical: 0),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   children: [
+                     Padding(
+                       padding: EdgeInsets.symmetric(vertical: 10),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Text('환경부/로밍 회원', style: TextStyle(color: Colors.white, fontSize: GuiConstants.fontMediumSize, fontFamily: GuiConstants.fontFamilyNoto),),
+                           Text('324.4원', style: TextStyle(color: Colors.white, fontSize: GuiConstants.fontMediumSize, fontFamily: GuiConstants.fontFamilyNoto),),
+                         ],
+                       ),
+                     ),
+                     Divider(color: CastProColor.dividerColor,height: 15,),
+                     Padding(
+                       padding: EdgeInsets.symmetric(vertical: 10),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Text('신용카드', style: TextStyle(color: Colors.white, fontSize: GuiConstants.fontMediumSize, fontFamily: GuiConstants.fontFamilyNoto),),
+                           Text('200.0원',style: TextStyle(color: Colors.white, fontSize: GuiConstants.fontMediumSize, fontFamily: GuiConstants.fontFamilyNoto),),
+                         ],
+                       ),
+                     )
+                   ],
+                                        ),
                 ),
               ),
               // const Divider(height: 3, color: CastProColor.dividerColor,),
@@ -187,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     '고객센터 070-3855-2090',
                     style: TextStyle(color: Colors.grey,
-                        fontSize: 15,
+                        fontSize: GuiConstants.fontSmallSize,
                         fontWeight: FontWeight.w700,
                         fontFamily: GuiConstants.fontFamilyNoto),
                     // style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white70),
